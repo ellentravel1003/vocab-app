@@ -188,7 +188,7 @@
                         雙語對照 (朗讀僅英文)
                     </span>
                     <button onclick="generateExtensionArticle()" class="px-3.5 py-1.5 bg-white text-emerald-700 rounded-xl text-xs font-bold shadow active:scale-95 transition-transform flex items-center gap-1">
-                        <i class="fa-solid fa-arrows-rotate"></i> 更新延伸文章
+                        <i class="fa-solid fa-arrows-rotate"></i> 更換/延伸文章
                     </button>
                 </div>
                 <h2 class="text-xl font-bold" id="ai-article-card-title">基礎 5000 高頻短文選集</h2>
@@ -364,30 +364,108 @@
     </main>
 
     <script>
-        // 1. 基礎 5000 核心高頻單字庫
+        // 大幅擴充的核心 5000 單字庫 (含完整 IPA 音標、詞性、繁中翻譯及例句)
         const basic5000Words = [
+            // A1
             { id: "w1", word: "primary", phonetic: "[ˈpraɪmeri]", pos: "adj.", meaning: "首要的；基本的", cefr: "A1", sentenceEn: "Safety is our primary concern in this project.", sentenceZh: "在這項計畫中，安全是我們首要關心的事。" },
-            { id: "w2", word: "achieve", phonetic: "[əˈtʃiːv]", pos: "v.", meaning: "達成；實現", cefr: "A2", sentenceEn: "She worked hard to achieve her dream of becoming a doctor.", sentenceZh: "她努力工作以實現成為醫生的夢想。" },
-            { id: "w3", word: "benefit", phonetic: "[ˈbenɪfɪt]", pos: "n.", meaning: "好處；利益", cefr: "A2", sentenceEn: "Regular exercise has many physical and mental benefits.", sentenceZh: "規律運動對身心有許多好處。" },
-            { id: "w4", word: "complex", phonetic: "[ˈkɑːmpleks]", pos: "adj.", meaning: "複雜的", cefr: "B1", sentenceEn: "Human DNA is an extremely complex structure.", sentenceZh: "人類的 DNA 是極度複雜的結構。" },
-            { id: "w5", word: "determine", phonetic: "[dɪˈtɜːrmɪn]", pos: "v.", meaning: "決定；確定", cefr: "B1", sentenceEn: "Experiments help determine the accuracy of hypotheses.", sentenceZh: "實驗有助於確定假說的準確性。" },
-            { id: "w6", word: "evaluate", phonetic: "[ɪˈvæljueɪt]", pos: "v.", meaning: "評估；鑑定", cefr: "B2", sentenceEn: "Doctors evaluate patient symptoms before making a diagnosis.", sentenceZh: "醫師在作出診斷前會先評估患者症狀。" },
-            { id: "w7", word: "fundamental", phonetic: "[ˌfʌndəˈmentl]", pos: "adj.", meaning: "基礎的；根本的", cefr: "B2", sentenceEn: "Understanding cell biology is fundamental to medicine.", sentenceZh: "理解細胞生物學是醫學的基礎。" },
-            { id: "w8", word: "hypothesize", phonetic: "[haɪˈpɑːθəsaɪz]", pos: "v.", meaning: "假定；提出假設", cefr: "C1", sentenceEn: "Scientists hypothesize that climate change affects species migration.", sentenceZh: "科學家假設氣候變遷會影響物種遷移。" },
-            { id: "w9", word: "inevitable", phonetic: "[ɪnˈevɪtəbl]", pos: "adj.", meaning: "不可避免的", cefr: "C1", sentenceEn: "Aging is an inevitable biological process.", sentenceZh: "衰老是不可避免的生物過程。" }
+            { id: "w2", word: "ability", phonetic: "[əˈbɪləti]", pos: "n.", meaning: "能力；才能", cefr: "A1", sentenceEn: "She has a great ability to learn languages quickly.", sentenceZh: "她擁有快速學習語言的絕佳能力。" },
+            { id: "w3", word: "active", phonetic: "[ˈæktɪv]", pos: "adj.", meaning: "活躍的；積極的", cefr: "A1", sentenceEn: "He takes an active role in community service.", sentenceZh: "他在社區服務中扮演著積極的角色。" },
+            { id: "w4", word: "basic", phonetic: "[ˈbeɪsɪk]", pos: "adj.", meaning: "基礎的；基本的", cefr: "A1", sentenceEn: "Water and oxygen are basic needs for living organisms.", sentenceZh: "水和氧氣是生物的基本需求。" },
+            { id: "w5", word: "cause", phonetic: "[kɔːz]", pos: "v. / n.", meaning: "導致；原因", cefr: "A1", sentenceEn: "Smoking can cause severe heart and lung diseases.", sentenceZh: "吸菸會導致心臟與肺部嚴重疾病。" },
+            { id: "w6", word: "common", phonetic: "[ˈkɑːmən]", pos: "adj.", meaning: "常見的；共同的", cefr: "A1", sentenceEn: "Fever is a common symptom of bacterial infections.", sentenceZh: "發燒是細菌感染的常見症狀。" },
+            { id: "w7", word: "create", phonetic: "[kriˈeɪt]", pos: "v.", meaning: "創造；引起", cefr: "A1", sentenceEn: "New technologies create opportunities for medical advances.", sentenceZh: "新技術為醫學進步創造了機會。" },
+            { id: "w8", word: "direct", phonetic: "[dəˈrekt]", pos: "adj.", meaning: "直接的", cefr: "A1", sentenceEn: "There is a direct correlation between diet and health.", sentenceZh: "飲食與健康之間存在著直接關聯。" },
+            { id: "w9", word: "effect", phonetic: "[ɪˈfekt]", pos: "n.", meaning: "效果；影響", cefr: "A1", sentenceEn: "The medication produced an immediate cooling effect.", sentenceZh: "這種藥物發揮了立即的退燒效果。" },
+            { id: "w10", word: "energy", phonetic: "[ˈenərdʒi]", pos: "n.", meaning: "能量；精力", cefr: "A1", sentenceEn: "Cells require glucose to generate usable energy.", sentenceZh: "細胞需要葡萄糖來產生可用的能量。" },
+
+            // A2
+            { id: "w11", word: "achieve", phonetic: "[əˈtʃiːv]", pos: "v.", meaning: "達成；實現", cefr: "A2", sentenceEn: "She worked hard to achieve her dream of becoming a doctor.", sentenceZh: "她努力工作以實現成為醫生的夢想。" },
+            { id: "w12", word: "benefit", phonetic: "[ˈbenɪfɪt]", pos: "n.", meaning: "好處；利益", cefr: "A2", sentenceEn: "Regular exercise has many physical and mental benefits.", sentenceZh: "規律運動對身心有許多好處。" },
+            { id: "w13", word: "absorb", phonetic: "[əbˈzɔːrb]", pos: "v.", meaning: "吸收", cefr: "A2", sentenceEn: "Plants absorb nutrients and water through their roots.", sentenceZh: "植物透過根部吸收養分與水分。" },
+            { id: "w14", word: "balance", phonetic: "[ˈbæləns]", pos: "n. / v.", meaning: "平衡", cefr: "A2", sentenceEn: "Hormones maintain the internal balance of the human body.", sentenceZh: "荷爾蒙維持著人體內部的平衡。" },
+            { id: "w15", word: "complex", phonetic: "[ˈkɑːmpleks]", pos: "adj.", meaning: "複雜的", cefr: "A2", sentenceEn: "Human brain neural pathways are extremely complex.", sentenceZh: "大腦的神經通路極為複雜。" },
+            { id: "w16", word: "condition", phonetic: "[kənˈdɪʃn]", pos: "n.", meaning: "狀況；條件", cefr: "A2", sentenceEn: "The patient is currently in stable condition.", sentenceZh: "該病人目前情況穩定。" },
+            { id: "w17", word: "damage", phonetic: "[ˈdæmɪdʒ]", pos: "v. / n.", meaning: "損害；傷害", cefr: "A2", sentenceEn: "Ultraviolet light can damage skin cells over time.", sentenceZh: "紫外線隨著時間推移會傷害皮膚細胞。" },
+            { id: "w18", word: "develop", phonetic: "[dɪˈveləp]", pos: "v.", meaning: "發展；培養", cefr: "A2", sentenceEn: "Researchers continue to develop safer medical therapies.", sentenceZh: "研究人員持續開發更安全的醫療療法。" },
+            { id: "w19", word: "element", phonetic: "[ˈelɪmənt]", pos: "n.", meaning: "元素；要素", cefr: "A2", sentenceEn: "Carbon is a foundational element for organic chemistry.", sentenceZh: "碳是有機化學的基礎元素。" },
+            { id: "w20", word: "function", phonetic: "[ˈfʌŋkʃn]", pos: "n. / v.", meaning: "功能；運作", cefr: "A2", sentenceEn: "The main function of red blood cells is oxygen transport.", sentenceZh: "紅血球的主要功能是運輸氧氣。" },
+
+            // B1
+            { id: "w21", word: "determine", phonetic: "[dɪˈtɜːrmɪn]", pos: "v.", meaning: "決定；確定", cefr: "B1", sentenceEn: "Experiments help determine the accuracy of hypotheses.", sentenceZh: "實驗有助於確定假說的準確性。" },
+            { id: "w22", word: "alter", phonetic: "[ˈɔːltər]", pos: "v.", meaning: "改變；修改", cefr: "B1", sentenceEn: "Gene editing techniques can precisely alter DNA sequences.", sentenceZh: "基因編輯技術能精確改變 DNA 序列。" },
+            { id: "w23", word: "capacity", phonetic: "[kəˈpæsəti]", pos: "n.", meaning: "容量；能力", cefr: "B1", sentenceEn: "Lungs have an astounding total storage capacity for air.", sentenceZh: "肺部擁有令人驚嘆的總氣體容納量。" },
+            { id: "w24", word: "decline", phonetic: "[dɪˈklaɪn]", pos: "v. / n.", meaning: "下降；衰退", cefr: "B1", sentenceEn: "Immune system activity may decline with advancing age.", sentenceZh: "免疫系統活性可能隨著年齡增長而下降。" },
+            { id: "w25", word: "estimate", phonetic: "[ˈestɪmeɪt]", pos: "v.", meaning: "估計；預估", cefr: "B1", sentenceEn: "Epidemiologists estimate the spread rate of new viruses.", sentenceZh: "流行病學家估計新病毒的傳播速率。" },
+            { id: "w26", word: "factor", phonetic: "[ˈfæktər]", pos: "n.", meaning: "因素；要素", cefr: "B1", sentenceEn: "Genetics is a key factor in determining height.", sentenceZh: "遺傳學是決定身高的關鍵因素。" },
+            { id: "w27", word: "generate", phonetic: "[ˈdʒenəreɪt]", pos: "v.", meaning: "產生；發電", cefr: "B1", sentenceEn: "ATP molecules generate power for muscular movement.", sentenceZh: "ATP 分子為肌肉運動產生動力。" },
+            { id: "w28", word: "impact", phonetic: "[ˈɪmpækt]", pos: "n. / v.", meaning: "衝擊；巨大影響", cefr: "B1", sentenceEn: "Pollution has a direct impact on respiratory health.", sentenceZh: "污染對呼吸道健康有著直接影響。" },
+            { id: "w29", word: "indicate", phonetic: "[ˈɪndɪkeɪt]", pos: "v.", meaning: "指出；顯示", cefr: "B1", sentenceEn: "High white blood cell counts indicate active inflammation.", sentenceZh: "白血球數量偏高顯示存在活性發炎反應。" },
+            { id: "w30", word: "maintain", phonetic: "[meɪnˈteɪn]", pos: "v.", meaning: "維持；保持", cefr: "B1", sentenceEn: "Homeostasis works to maintain constant body temperature.", sentenceZh: "體內恆定性機制致力於維持恆定的體溫。" },
+
+            // B2
+            { id: "w31", word: "evaluate", phonetic: "[ɪˈvæljueɪt]", pos: "v.", meaning: "評估；鑑定", cefr: "B2", sentenceEn: "Doctors evaluate patient symptoms before making a diagnosis.", sentenceZh: "醫師在作出診斷前會先評估患者症狀。" },
+            { id: "w32", word: "fundamental", phonetic: "[ˌfʌndəˈmentl]", pos: "adj.", meaning: "基礎的；根本的", cefr: "B2", sentenceEn: "Understanding cell biology is fundamental to medicine.", sentenceZh: "理解細胞生物學是醫學的基礎。" },
+            { id: "w33", word: "accumulate", phonetic: "[əˈkjuːmjəleɪt]", pos: "v.", meaning: "累積；聚積", cefr: "B2", sentenceEn: "Lactic acid can accumulate in muscles during intense exercise.", sentenceZh: "高強度運動時，乳酸會在肌肉中累積。" },
+            { id: "w34", word: "boundary", phonetic: "[ˈbaʊndri]", pos: "n.", meaning: "邊界；界線", cefr: "B2", sentenceEn: "The cell membrane acts as a selective physical boundary.", sentenceZh: "細胞膜扮演著具選擇性的物理邊界。" },
+            { id: "w35", word: "crucial", phonetic: "[ˈkruːʃl]", pos: "adj.", meaning: "至關重要的", cefr: "B2", sentenceEn: "Enzymatic catalysts play a crucial role in metabolism.", sentenceZh: "酵素催化劑在新陳代謝中扮演至關重要的角色。" },
+            { id: "w36", word: "diverse", phonetic: "[daɪˈvɜːrs]", pos: "adj.", meaning: "多樣的；多元的", cefr: "B2", sentenceEn: "Proteins perform diverse physiological tasks in living cells.", sentenceZh: "蛋白質在活細胞中執行著多樣的生理任務。" },
+            { id: "w37", word: "enhance", phonetic: "[ɪnˈhæns]", pos: "v.", meaning: "增強；提升", cefr: "B2", sentenceEn: "Vaccines enhance the adaptive immune response.", sentenceZh: "疫苗能增強後天獲得性免疫反應。" },
+            { id: "w38", word: "fluctuate", phonetic: "[ˈflʌktʃueɪt]", pos: "v.", meaning: "波動；變動", cefr: "B2", sentenceEn: "Blood sugar levels fluctuate naturally after meal consumption.", sentenceZh: "餐後血糖濃度會自然發生波動。" },
+            { id: "w39", word: "isolate", phonetic: "[ˈaɪsəleɪt]", pos: "v.", meaning: "隔離；分離", cefr: "B2", sentenceEn: "Researchers isolated the specific bacterial strain in the lab.", sentenceZh: "研究人員在實驗室中分離出了特定的細菌株。" },
+            { id: "w40", word: "mechanism", phonetic: "[ˈmekənɪzəm]", pos: "n.", meaning: "機制；原理", cefr: "B2", sentenceEn: "Scientists mapped the precise feedback mechanism of insulin.", sentenceZh: "科學家繪製了胰島素精確的負回饋機制圖。" },
+
+            // C1
+            { id: "w41", word: "hypothesize", phonetic: "[haɪˈpɑːθəsaɪz]", pos: "v.", meaning: "假定；提出假設", cefr: "C1", sentenceEn: "Scientists hypothesize that climate change affects species migration.", sentenceZh: "科學家假設氣候變遷會影響物種遷移。" },
+            { id: "w42", word: "inevitable", phonetic: "[ɪnˈevɪtəbl]", pos: "adj.", meaning: "不可避免的", cefr: "C1", sentenceEn: "Aging is an inevitable biological process.", sentenceZh: "衰老是不可避免的生物過程。" },
+            { id: "w43", word: "ambiguous", phonetic: "[æmˈbɪɡjuəs]", pos: "adj.", meaning: "模稜兩可的；含糊的", cefr: "C1", sentenceEn: "Clinical diagnostic results were ambiguous and required further testing.", sentenceZh: "臨床診斷結果模稜兩可，需要進一步檢測。" },
+            { id: "w44", word: "coherent", phonetic: "[koʊˈhɪrənt]", pos: "adj.", meaning: "連貫的；條理分明的", cefr: "C1", sentenceEn: "The paper presents a coherent argument regarding gene therapy.", sentenceZh: "該論文針對基因療法提出了連貫且有條理的論述。" },
+            { id: "w45", word: "delineate", phonetic: "[dɪˈlɪnieɪt]", pos: "v.", meaning: "勾勒；詳細描繪", cefr: "C1", sentenceEn: "Microscopy helped delineate structural sub-domains of organelles.", sentenceZh: "顯微技術協助描繪了胞器的結構亞領域。" },
+            { id: "w46", word: "elucidate", phonetic: "[ɪˈluːsɪdeɪt]", pos: "v.", meaning: "闡明；說明", cefr: "C1", sentenceEn: "Recent studies elucidate how viral proteins hijack host machinery.", sentenceZh: "近期的研究闡明了病毒蛋白質如何劫持宿主機制。" },
+            { id: "w47", word: "inhibit", phonetic: "[ɪnˈhɪbɪt]", pos: "v.", meaning: "抑制；約束", cefr: "C1", sentenceEn: "Pharmacological compounds can inhibit target enzyme activation.", sentenceZh: "藥物化合物可抑制目標酵素的活化。" },
+            { id: "w48", word: "predominant", phonetic: "[prɪˈdɑːmɪnənt]", pos: "adj.", meaning: "佔優勢的；主要的", cefr: "C1", sentenceEn: "Phospholipids are the predominant lipid constituent in cell membranes.", sentenceZh: "磷脂質是細胞膜中最主要的脂質成分。" },
+            { id: "w49", word: "susceptible", phonetic: "[səˈseptəbl]", pos: "adj.", meaning: "易受影響的；易感染的", cefr: "C1", sentenceEn: "Immunocompromised patients are highly susceptible to secondary infections.", sentenceZh: "免疫力低下患者極易發生二次感染。" },
+            { id: "w50", word: "unprecedented", phonetic: "[ʌnˈpresɪdentɪd]", pos: "adj.", meaning: "史無前例的", cefr: "C1", sentenceEn: "The mRNA vaccine development showed unprecedented speed.", sentenceZh: "mRNA 疫苗的研發展現了史無前例的速度。" }
         ];
 
-        const basic5000Articles = {
-            title: "Daily Routines and Essential Science Skills",
-            cefr: "A1~B1",
-            category: "基礎核心閱讀",
-            sentences: [
-                { text: "Safety is our primary concern in every scientific laboratory experiment.", zh: "在每個科學實驗室實驗中，安全都是我們首要關心的事。" },
-                { text: "Students work hard to achieve high academic standards in science.", zh: "學生們努力工作以在科學領域達到高學術標準。" },
-                { text: "Regular study habits bring significant long-term cognitive benefits.", zh: "規律的習慣能帶來顯著的長期認知好處。" },
-                { text: "Understanding complex cellular systems requires fundamental biological knowledge.", zh: "理解複雜的細胞系統需要基礎的生物學知識。" }
-            ]
-        };
+        // 基礎文章集 (提供切換/延伸選擇)
+        const basic5000ArticlesList = [
+            {
+                title: "Daily Routines and Essential Science Skills",
+                cefr: "A1~B1",
+                category: "基礎核心閱讀 Vol. 1",
+                sentences: [
+                    { text: "Safety is our primary concern in every scientific laboratory experiment.", zh: "在每個科學實驗室實驗中，安全都是我們首要關心的事。" },
+                    { text: "Students work hard to achieve high academic standards in science.", zh: "學生們努力工作以在科學領域達到高學術標準。" },
+                    { text: "Regular study habits bring significant long-term cognitive benefits.", zh: "規律的習慣能帶來顯著的長期認知好處。" },
+                    { text: "Understanding complex cellular systems requires fundamental biological knowledge.", zh: "理解複雜的細胞系統需要基礎的生物學知識。" }
+                ]
+            },
+            {
+                title: "Biological Balance and Health Fundamentals",
+                cefr: "A2~B2",
+                category: "基礎核心閱讀 Vol. 2",
+                sentences: [
+                    { text: "Human organs function together seamlessly to absorb nutrients and essential minerals.", zh: "人體器官無縫協同運作以吸收養分與必需礦物質。" },
+                    { text: "Dynamic physiological processes maintain homeostatic balance under fluctuating weather conditions.", zh: "動態生理過程在波動的氣候條件下維持體內恆定平衡。" },
+                    { text: "Preventative medicine aims to evaluate initial symptoms and avoid organ damage.", zh: "預防醫學旨在評估初期症狀並避免器官受損。" },
+                    { text: "Healthy metabolic choices generate long-term resilience against chronic infections.", zh: "健康的代謝選擇能為抵禦慢性感染產生長期韌性。" }
+                ]
+            },
+            {
+                title: "Scientific Inquiry and Modern Technological Impact",
+                cefr: "B1~C1",
+                category: "基礎核心閱讀 Vol. 3",
+                sentences: [
+                    { text: "Researchers establish rigorous controls to determine cause and effect in pharmaceutical trials.", zh: "研究人員建立嚴格的對照組，以確定藥物試驗中的因果關係。" },
+                    { text: "Biomedical breakthroughs generate unprecedented options for genetic disease treatments.", zh: "生物醫學突破為遺傳疾病治療帶來了史無前例的選擇。" },
+                    { text: "Scientists elucidate hidden molecular pathways that regulate immune responses.", zh: "科學家闡明了調節免疫反應的隱蔽分子途徑。" },
+                    { text: "Evaluating ambiguous clinical data demands a coherent analytical framework.", zh: "評估模稜兩可的臨床數據需要一個條理分明的分析框架。" }
+                ]
+            }
+        ];
+
+        let basicArticleIndex = 0;
+        let basic5000Articles = basic5000ArticlesList[0];
 
         const basic5000Questions = [
             {
@@ -398,25 +476,65 @@
                 ans: 0,
                 explainEn: "'Primary' means main or most important.",
                 explainZh: "'Primary' 意為主要的或最重要的。"
+            },
+            {
+                qEn: "Which word best describes a process that cannot be avoided or prevented?",
+                qZh: "哪一個單字最適合形容無法避免或預防的過程？",
+                optsEn: ["Ambiguous", "Inevitable", "Fluctuating", "Diverse"],
+                optsZh: ["模稜兩可的", "不可避免的", "波動的", "多樣的"],
+                ans: 1,
+                explainEn: "'Inevitable' refers to something certain to happen and impossible to avoid.",
+                explainZh: "'Inevitable' 指必然會發生且無法避免的事物。"
+            },
+            {
+                qEn: "Select the sentence that uses 'evaluate' correctly.",
+                qZh: "請選擇正確使用 'evaluate' 的句子。",
+                optsEn: [
+                    "Physicians evaluate patient symptoms before making a formal diagnosis.",
+                    "The sun will evaluate early in the morning.",
+                    "She evaluate her running speed yesterday.",
+                    "Cells evaluate into organelles inside the blood."
+                ],
+                optsZh: [
+                    "醫師在做出正式診斷之前會先評估病患症狀。",
+                    "太陽會在清晨評估。（語意不合）",
+                    "她昨天評估了她的跑步速度。（動詞時態不合）",
+                    "細胞在血液中評估成胞器。（語意不合）"
+                ],
+                ans: 0,
+                explainEn: "'Evaluate' means to assess or appraise clinical or scientific data.",
+                explainZh: "'Evaluate' 意為評估、鑑定臨床或科學數據。"
             }
         ];
 
-        // 2. 醫學院 4 大階段專科資料庫
+        // 2. 醫學院 4 大階段專科資料庫 (擴展單字與文章集)
         const stageCurriculum = {
             1: {
                 badge: "Stage 1: 細胞結構與生物分子",
-                article: {
-                    title: "Cellular Structure & Major Biomolecules (細胞結構與生物巨分子)",
-                    cefr: "B1",
-                    category: "醫學院/細胞生物學",
-                    sentences: [
-                        { text: "Eukaryotic cells contain membrane-bound organelles that isolate specialized metabolic reactions.", zh: "真核細胞包含膜狀胞器，能分隔專化的代謝反應。" },
-                        { text: "The plasma membrane is a phospholipid bilayer with embedded transport proteins.", zh: "細胞膜是由磷脂質雙層及嵌入的運輸蛋白質構成。" },
-                        { text: "Proteins, carbohydrates, lipids, and nucleic acids form the structural foundation of life.", zh: "蛋白質、醣類、脂質與核酸構成了生命的結構基礎。" },
-                        { text: "Mitochondria produce ATP through aerobic cellular respiration.", zh: "粒線體透過有氧細胞呼吸作用產生 ATP。" },
-                        { text: "Lysosomes contain hydrolytic enzymes responsible for degrading cellular waste.", zh: "溶體包含水解酵素，負責降解細胞廢棄物。" }
-                    ]
-                },
+                articles: [
+                    {
+                        title: "Cellular Structure & Major Biomolecules (細胞結構與生物巨分子)",
+                        cefr: "B1",
+                        category: "醫學院/細胞生物學 Vol. 1",
+                        sentences: [
+                            { text: "Eukaryotic cells contain membrane-bound organelles that isolate specialized metabolic reactions.", zh: "真核細胞包含膜狀胞器，能分隔專化的代謝反應。" },
+                            { text: "The plasma membrane is a phospholipid bilayer with embedded transport proteins.", zh: "細胞膜是由磷脂質雙層及嵌入的運輸蛋白質構成。" },
+                            { text: "Proteins, carbohydrates, lipids, and nucleic acids form the structural foundation of life.", zh: "蛋白質、醣類、脂質與核酸構成了生命的結構基礎。" },
+                            { text: "Mitochondria produce ATP through aerobic cellular respiration.", zh: "粒線體透過有氧細胞呼吸作用產生 ATP。" },
+                            { text: "Lysosomes contain hydrolytic enzymes responsible for degrading cellular waste.", zh: "溶體包含水解酵素，負責降解細胞廢棄物。" }
+                        ]
+                    },
+                    {
+                        title: "Membrane Transport Mechanics (膜運輸機制與通道)",
+                        cefr: "B2",
+                        category: "醫學院/細胞生物學 Vol. 2",
+                        sentences: [
+                            { text: "Passive transport relies on concentration gradients without requiring ATP input.", zh: "被動運輸依賴濃度梯度，不需要消耗 ATP 能量。" },
+                            { text: "Sodium-potassium pumps execute primary active transport across cell boundaries.", zh: "鈉鉀幫浦在細胞邊界上執行一級主動運輸。" },
+                            { text: "Endocytosis permits eukaryotic cells to engulf large macromolecules efficiently.", zh: "胞吞作用允許真核細胞高效胞吞大型巨分子。" }
+                        ]
+                    }
+                ],
                 mcat: [
                     {
                         qEn: "Which organelle is primarily responsible for lipid synthesis and steroid production?",
@@ -426,26 +544,50 @@
                         ans: 1,
                         explainEn: "Smooth ER synthesizes lipids and steroids while detoxifying metabolic byproducts.",
                         explainZh: "平滑面內質網合成脂質與固醇，同時解毒代謝副產物。"
+                    },
+                    {
+                        qEn: "Which component of the cell membrane maintains fluidity under variable temperature conditions?",
+                        qZh: "細胞膜的哪種成分可在變動溫度下維持膜的流動性？",
+                        optsEn: ["Cholesterol", "Glycoprotein", "Nucleic Acid", "Ribosome"],
+                        optsZh: ["膽固醇", "醣蛋白", "核酸", "核糖體"],
+                        ans: 0,
+                        explainEn: "Cholesterol acts as a fluidity buffer in cell membranes.",
+                        explainZh: "膽固醇在細胞膜中充當流動性緩衝劑。"
                     }
                 ],
                 words: [
                     { id: "m1", word: "organelle", phonetic: "[ˌɔːrɡəˈnɛl]", pos: "n.", meaning: "胞器", cefr: "B1", sentenceEn: "Organelles compartmentalize biological activities.", sentenceZh: "胞器將生物活性分隔化。" },
                     { id: "m2", word: "phospholipid", phonetic: "[ˌfɑːsfəʊˈlɪpɪd]", pos: "n.", meaning: "磷脂質", cefr: "B2", sentenceEn: "Phospholipids form biological membranes.", sentenceZh: "磷脂質形成生物膜。" },
-                    { id: "m3", word: "mitochondria", phonetic: "[ˌmaɪtəʊˈkɑːndriə]", pos: "n.", meaning: "粒線體", cefr: "B1", sentenceEn: "Mitochondria are the powerhouse of the cell.", sentenceZh: "粒線體是細胞的能量發電廠。" }
+                    { id: "m3", word: "mitochondria", phonetic: "[ˌmaɪtəʊˈkɑːndriə]", pos: "n.", meaning: "粒線體", cefr: "B1", sentenceEn: "Mitochondria are the powerhouse of the cell.", sentenceZh: "粒線體是細胞的能量發電廠。" },
+                    { id: "m10", word: "lysosome", phonetic: "[ˈlaɪsəsoʊm]", pos: "n.", meaning: "溶體", cefr: "B2", sentenceEn: "Lysosomes degrade damaged cellular constituents.", sentenceZh: "溶體能降解受損的細胞成分。" },
+                    { id: "m11", word: "endocytosis", phonetic: "[ˌendoʊsaɪˈtoʊsɪs]", pos: "n.", meaning: "胞吞作用", cefr: "C1", sentenceEn: "Cells internalize hormones through receptor-mediated endocytosis.", sentenceZh: "細胞透過受體媒介胞吞作用將荷爾蒙內化。" },
+                    { id: "m12", word: "ribosome", phonetic: "[ˈraɪbəsoʊm]", pos: "n.", meaning: "核糖體", cefr: "B1", sentenceEn: "Ribosomes synthesize proteins according to mRNA strands.", sentenceZh: "核糖體根據 mRNA 轉錄股合成蛋白質。" }
                 ]
             },
             2: {
                 badge: "Stage 2: 酵素動力學與抑制作用",
-                article: {
-                    title: "Enzyme Kinetics & Inhibitory Mechanisms (酵素動力學與抑制機制)",
-                    cefr: "B2",
-                    category: "生物化學/酵素學",
-                    sentences: [
-                        { text: "Enzymes are biological catalysts that lower activation energy without changing Gibbs free energy.", zh: "酵素是生物催化劑，能在不改變吉布斯自由能的情況下降低活化能。" },
-                        { text: "The Michaelis-Menten equation describes the rate of enzymatic reactions.", zh: "米氏方程將酵素反應速率描述為受質濃度的函數。" },
-                        { text: "Competitive inhibitors bind to the active site and increase the apparent Km value.", zh: "競爭性抑制劑結合至活性位點並提高表觀 Km 值。" }
-                    ]
-                },
+                articles: [
+                    {
+                        title: "Enzyme Kinetics & Inhibitory Mechanisms (酵素動力學與抑制機制)",
+                        cefr: "B2",
+                        category: "生物化學/酵素學 Vol. 1",
+                        sentences: [
+                            { text: "Enzymes are biological catalysts that lower activation energy without changing Gibbs free energy.", zh: "酵素是生物催化劑，能在不改變吉布斯自由能的情況下降低活化能。" },
+                            { text: "The Michaelis-Menten equation describes the rate of enzymatic reactions.", zh: "米氏方程將酵素反應速率描述為受質濃度的函數。" },
+                            { text: "Competitive inhibitors bind to the active site and increase the apparent Km value.", zh: "競爭性抑制劑結合至活性位點並提高表觀 Km 值。" },
+                            { text: "Non-competitive inhibitors lower Vmax while keeping Km unaltered.", zh: "非競爭性抑制劑降低 Vmax，同時保持 Km 不變。" }
+                        ]
+                    },
+                    {
+                        title: "Allosteric Regulation & Cooperativity (別構調節與協同效應)",
+                        cefr: "C1",
+                        category: "生物化學/酵素學 Vol. 2",
+                        sentences: [
+                            { text: "Allosteric effectors induce conformational modifications in multimeric enzymes.", zh: "別構效應因子會在多聚體酵素中誘發構象改變。" },
+                            { text: "Hemoglobin exhibits positive cooperativity during oxygen loading in alveolar capillaries.", zh: "紅血球血紅素在肺泡毛細血管結合氧氣時展現正協同效應。" }
+                        ]
+                    }
+                ],
                 mcat: [
                     {
                         qEn: "How does a competitive inhibitor alter the Lineweaver-Burk plot?",
@@ -455,43 +597,102 @@
                         ans: 0,
                         explainEn: "Vmax is unchanged, but Km increases.",
                         explainZh: "Vmax 不變，但 Km 增加。"
+                    },
+                    {
+                        qEn: "An enzyme exhibits a sigmoidal velocity curve. This observation strongly indicates:",
+                        qZh: "某酵素展現出 S 型（S-shaped）速率曲線，此現象強烈顯示：",
+                        optsEn: ["Michaelis-Menten simple kinetics", "Allosteric cooperativity", "Uncompetitive inhibition", "Denaturation"],
+                        optsZh: ["傳統米氏單純動力學", "別構協同作用 (Cooperativity)", "反競爭性抑制", "變性作用"],
+                        ans: 1,
+                        explainEn: "Sigmoidal binding curves reflect allosteric interaction among multiple active sites.",
+                        explainZh: "S 型結合曲線反映多個活性位點間的別構協同作用。"
                     }
                 ],
                 words: [
                     { id: "m4", word: "catalyst", phonetic: "[ˈkætəlɪst]", pos: "n.", meaning: "催化劑", cefr: "B2", sentenceEn: "Enzymes act as protein catalysts.", sentenceZh: "酵素扮演蛋白質催化劑。" },
-                    { id: "m5", word: "allosteric", phonetic: "[ˌælɵˈstɛrɪk]", pos: "adj.", meaning: "別構的/異位調節的", cefr: "C1", sentenceEn: "Allosteric sites modulate enzyme conformation.", sentenceZh: "別構位點調節酵素構象。" }
+                    { id: "m5", word: "allosteric", phonetic: "[ˌælɵˈstɛrɪk]", pos: "adj.", meaning: "別構的/異位調節的", cefr: "C1", sentenceEn: "Allosteric sites modulate enzyme conformation.", sentenceZh: "別構位點調節酵素構象。" },
+                    { id: "m13", word: "substrate", phonetic: "[ˈsʌbstreɪt]", pos: "n.", meaning: "受質；底物", cefr: "B2", sentenceEn: "Substrates bind specifically to active catalytic pockets.", sentenceZh: "受質特異性地結合於活性催化口袋。" },
+                    { id: "m14", word: "inhibition", phonetic: "[ˌɪnhɪˈbɪʃn]", pos: "n.", meaning: "抑制作用", cefr: "B2", sentenceEn: "Feedback inhibition regulates biosynthetic metabolic output.", sentenceZh: "負回饋抑制作用能調節生物合成的代謝產量。" }
                 ]
             },
             3: {
                 badge: "Stage 3: 熱力學與核心代謝途徑",
-                article: {
-                    title: "Thermodynamics & Bioenergetics (熱力學與生物能量學)",
-                    cefr: "B2",
-                    category: "生物化學/熱力學",
-                    sentences: [
-                        { text: "Glycolysis oxidizes glucose into two pyruvate molecules in the cytosol.", zh: "糖解作用於細胞質基質中將葡萄糖氧化為兩個丙酮酸分子。" },
-                        { text: "The Citric Acid Cycle produces reduced electron carriers NADH and FADH2.", zh: "檸檬酸循環產生還原態電子載體 NADH 與 FADH2。" }
-                    ]
-                },
-                mcat: [],
+                articles: [
+                    {
+                        title: "Thermodynamics & Bioenergetics (熱力學與生物能量學)",
+                        cefr: "B2",
+                        category: "生物化學/熱力學 Vol. 1",
+                        sentences: [
+                            { text: "Glycolysis oxidizes glucose into two pyruvate molecules in the cytosol.", zh: "糖解作用於細胞質基質中將葡萄糖氧化為兩個丙酮酸分子。" },
+                            { text: "The Citric Acid Cycle produces reduced electron carriers NADH and FADH2.", zh: "檸檬酸循環產生還原態電子載體 NADH 與 FADH2。" },
+                            { text: "Oxidative phosphorylation relies on a proton gradient across the inner mitochondrial membrane.", zh: "氧化磷酸化作用依賴跨越粒線體內膜的質子梯度。" }
+                        ]
+                    },
+                    {
+                        title: "Gluconeogenesis & Metabolic Control (糖質新生與代謝管制)",
+                        cefr: "C1",
+                        category: "生物化學/熱力學 Vol. 2",
+                        sentences: [
+                            { text: "Gluconeogenesis bypasses irreversible glycolytic steps in liver hepatocytes.", zh: "糖質新生在大腦與肝細胞中繞過不可逆的糖解反應步驟。" },
+                            { text: "Hormonal signals like glucagon elevate blood sugar concentrations.", zh: "升糖素等荷爾蒙訊號可提升血液中的糖濃度。" }
+                        ]
+                    }
+                ],
+                mcat: [
+                    {
+                        qEn: "Where does the Citric Acid Cycle (Krebs Cycle) take place in eukaryotic cells?",
+                        qZh: "真核細胞中的檸檬酸循環（克氏循環）發生於何處？",
+                        optsEn: ["Cytosol", "Mitochondrial Matrix", "Intermembrane Space", "Nucleolus"],
+                        optsZh: ["細胞質基質", "粒線體基質", "膜間隙", "核仁"],
+                        ans: 1,
+                        explainEn: "Krebs cycle enzymes are located inside the mitochondrial matrix.",
+                        explainZh: "克氏循環酵素群位於粒線體基質內部。"
+                    }
+                ],
                 words: [
-                    { id: "m6", word: "glycolysis", phonetic: "[ɡlaɪˈkɑːləsɪs]", pos: "n.", meaning: "糖解作用", cefr: "C1", sentenceEn: "Glycolysis yields net two ATP molecules.", sentenceZh: "糖解作用淨產生兩個 ATP 分子。" }
+                    { id: "m6", word: "glycolysis", phonetic: "[ɡlaɪˈkɑːləsɪs]", pos: "n.", meaning: "糖解作用", cefr: "C1", sentenceEn: "Glycolysis yields net two ATP molecules.", sentenceZh: "糖解作用淨產生兩個 ATP 分子。" },
+                    { id: "m15", word: "pyruvate", phonetic: "[paɪˈruːveɪt]", pos: "n.", meaning: "丙酮酸", cefr: "C1", sentenceEn: "Pyruvate converts into Acetyl-CoA under aerobic settings.", sentenceZh: "有氧條件下丙酮酸轉化為乙醯輔酶A。" },
+                    { id: "m16", word: "phosphorylation", phonetic: "[ˌfɑːsfɔːrɪˈleɪʃn]", pos: "n.", meaning: "磷酸化作用", cefr: "C1", sentenceEn: "Substrate-level phosphorylation generates ATP during glycolysis.", sentenceZh: "受質層級磷酸化在糖解期間產生 ATP。" }
                 ]
             },
             4: {
                 badge: "Stage 4: 分子遺傳與有機化學機制",
-                article: {
-                    title: "Molecular Genetics & Organic Mechanisms (分子遺傳與有機機制)",
-                    cefr: "C1",
-                    category: "分子生物/有機化學",
-                    sentences: [
-                        { text: "DNA replication is semiconservative and proceeds in a 5' to 3' direction.", zh: "DNA 複製為半保留性，並以 5' 至 3' 方向進行。" },
-                        { text: "Nucleophilic substitution reaction rates depend on steric hindrance.", zh: "親核取代反應的速率取決於位阻效應與溶劑選擇。" }
-                    ]
-                },
-                mcat: [],
+                articles: [
+                    {
+                        title: "Molecular Genetics & Organic Mechanisms (分子遺傳與有機機制)",
+                        cefr: "C1",
+                        category: "分子生物/有機化學 Vol. 1",
+                        sentences: [
+                            { text: "DNA replication is semiconservative and proceeds in a 5' to 3' direction.", zh: "DNA 複製為半保留性，並以 5' 至 3' 方向進行。" },
+                            { text: "Nucleophilic substitution reaction rates depend on steric hindrance and solvent choice.", zh: "親核取代反應的速率取決於位阻效應與溶劑選擇。" },
+                            { text: "Transcription factors bind promoter sequences to recruit RNA polymerase II.", zh: "轉錄因子結合至啟動子序列以招募 RNA 聚合酶 II。" }
+                        ]
+                    },
+                    {
+                        title: "Organic Reactions & Chirality (有機反應與手性分子)",
+                        cefr: "C1",
+                        category: "有機化學 Vol. 2",
+                        sentences: [
+                            { text: "Chiral stereocenters rotate plane-polarized light in polarimeter tests.", zh: "手性立體中心在偏振計測試中會旋轉平面偏振光。" },
+                            { text: "SN2 substitution mechanisms proceed with complete stereochemical inversion.", zh: "SN2 取代反應機制伴隨完整的立體化學構象翻轉。" }
+                        ]
+                    }
+                ],
+                mcat: [
+                    {
+                        qEn: "An SN2 reaction acting on a chiral center will result in:",
+                        qZh: "作用於手性中心的 SN2 反應會導致：",
+                        optsEn: ["Racemization", "Inversion of Configuration", "Retention of Configuration", "No Reaction"],
+                        optsZh: ["外消旋化", "構象翻轉 (Inversion)", "構象保持", "不發生反應"],
+                        ans: 1,
+                        explainEn: "Backside nucleophilic attack causes inversion of stereochemical configuration.",
+                        explainZh: "親核試劑背面攻擊會導致立體化學構象翻轉。"
+                    }
+                ],
                 words: [
-                    { id: "m7", word: "polymerase", phonetic: "[pəˈlɪməreɪs]", pos: "n.", meaning: "聚合酶", cefr: "C1", sentenceEn: "DNA polymerase elongates daughter strands.", sentenceZh: "DNA 聚合酶延長子股。" }
+                    { id: "m7", word: "polymerase", phonetic: "[pəˈlɪməreɪs]", pos: "n.", meaning: "聚合酶", cefr: "C1", sentenceEn: "DNA polymerase elongates daughter strands.", sentenceZh: "DNA 聚合酶延長子股。" },
+                    { id: "m17", word: "nucleophile", phonetic: "[ˈnuːklioʊfaɪl]", pos: "n.", meaning: "親核試劑", cefr: "C1", sentenceEn: "Nucleophiles donate electron pairs to electrophilic carbons.", sentenceZh: "親核試劑給予電子對予親電性碳。" },
+                    { id: "m18", word: "chirality", phonetic: "[kaɪˈræləti]", pos: "n.", meaning: "手性/鏡像異構", cefr: "C1", sentenceEn: "Chirality is critical for drug-receptor binding affinity.", sentenceZh: "手性對於藥物與受體的結合親和力極為關鍵。" }
                 ]
             }
         };
@@ -507,7 +708,6 @@
         let fcIndex = 0;
         let speechRate = 1.0;
         let speechPauseSec = 1.5;
-        let autoPlayInterval = null;
 
         // 本地星號收藏庫 (LocalStorage)
         let favoriteWords = JSON.parse(localStorage.getItem('readle_fav_words') || '[]');
@@ -568,7 +768,6 @@
             speakPromise(text);
         }
 
-        // 提醒通知功能
         function toggleNotificationPermission() {
             if ("Notification" in window) {
                 Notification.requestPermission().then(permission => {
@@ -581,6 +780,27 @@
             } else {
                 alert("此 Safari/瀏覽器版本暫不支援主動系統推播，請直接將網址「加入主畫面」每日打開即可！");
             }
+        }
+
+        function generateExtensionArticle() {
+            stopArticlePlay();
+            if (currentMode === '5000') {
+                basicArticleIndex = (basicArticleIndex + 1) % basic5000ArticlesList.length;
+                basic5000Articles = basic5000ArticlesList[basicArticleIndex];
+                currentArticle = basic5000Articles;
+            } else {
+                const stageData = stageCurriculum[currentStage];
+                const articles = stageData.articles;
+                const currentTitle = currentArticle.title;
+                const nextArt = articles.find(a => a.title !== currentTitle) || articles[0];
+                currentArticle = nextArt;
+            }
+
+            document.getElementById('article-title').innerText = currentArticle.title;
+            document.getElementById('article-category').innerText = currentArticle.category;
+            document.getElementById('article-cefr-badge').innerText = `CEFR ${currentArticle.cefr}`;
+            currentSentenceIdx = 0;
+            renderArticleBody();
         }
 
         function switchMode(mode) {
@@ -634,7 +854,7 @@
                 }
             }
 
-            currentArticle = data.article;
+            currentArticle = data.articles[0];
             currentWords = data.words;
 
             document.getElementById('ai-article-card-title').innerText = data.badge;
@@ -828,7 +1048,6 @@
         }
 
         function loadAnkiCard() {
-            // Anki 優先使用「星號生字本」，若無收藏則使用當前單字庫
             const listSource = favoriteWords.length > 0 ? favoriteWords : currentWords;
             if (!listSource || listSource.length === 0) return;
 
