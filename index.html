@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Readle Bio & MCAT 進度式學習平台</title>
+    <title>Readle Bio & MCAT 醫學院進度學習平台</title>
 
-    <!-- iOS Native App Meta -->
+    <!-- iOS Native Web App Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ReadleBio">
-    <link rel="apple-touch-icon" href="https://placehold.co/180x180/007AFF/ffffff.png?text=BioApp">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -72,7 +71,7 @@
                 <div>
                     <h1 class="font-bold text-lg tracking-tight leading-none">Readle Bio & MCAT</h1>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium flex items-center gap-1.5">
-                        <span id="domain-badge-label" class="text-emerald-600 dark:text-emerald-400 font-bold">🧬 生物/化學/生化進度班</span>
+                        <span id="domain-badge-label" class="text-emerald-600 dark:text-emerald-400 font-bold">🧬 醫學院生物/化學/生化專科</span>
                     </p>
                 </div>
             </div>
@@ -88,24 +87,14 @@
 
     <main class="max-w-2xl mx-auto px-4 pt-4">
 
-        <!-- 領域切換器 -->
-        <div class="bg-iosCard dark:bg-iosDarkCard p-2 rounded-2xl mb-4 border border-slate-200/60 dark:border-slate-800 flex gap-2 shadow-sm">
-            <button id="domain-bio-btn" onclick="switchDomain('bio')" class="flex-1 py-2.5 rounded-xl text-xs font-bold bg-emerald-500 text-white shadow transition-all flex items-center justify-center gap-1.5">
-                🧬 醫學院 (生物/化學/生化)
-            </button>
-            <button id="domain-5000-btn" onclick="switchDomain('5000')" class="flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 transition-all flex items-center justify-center gap-1.5">
-                📚 基礎 5000 單字
-            </button>
-        </div>
-
         <!-- 學習階段進度條 (Stages) -->
         <div id="stage-bar-container" class="space-y-2 mb-4">
             <div class="flex justify-between items-center px-1">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">醫學院進度選擇 (Curriculum Stage)</span>
-                <span id="current-stage-badge" class="text-xs font-extrabold text-emerald-600">Stage 1: 基礎細胞</span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">醫學院階段選擇 (Curriculum Stage)</span>
+                <span id="current-stage-badge" class="text-xs font-extrabold text-emerald-600">Stage 1: 細胞結構與生物分子</span>
             </div>
             <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
-                <button onclick="switchStage(1)" id="stage-btn-1" class="px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap bg-emerald-500 text-white shadow">Stage 1: 基礎細胞與生物分子</button>
+                <button onclick="switchStage(1)" id="stage-btn-1" class="px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap bg-emerald-500 text-white shadow">Stage 1: 細胞與巨分子</button>
                 <button onclick="switchStage(2)" id="stage-btn-2" class="px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">Stage 2: 酵素動力學與抑制</button>
                 <button onclick="switchStage(3)" id="stage-btn-3" class="px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">Stage 3: 熱力學與核心代謝</button>
                 <button onclick="switchStage(4)" id="stage-btn-4" class="px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">Stage 4: 分子遺傳與有機機制</button>
@@ -133,14 +122,14 @@
             <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white p-5 rounded-3xl shadow-xl space-y-3">
                 <div class="flex justify-between items-center">
                     <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md">
-                        雙語對照教學
+                        雙語對照教學 (朗讀純英文)
                     </span>
                     <button onclick="generateDynamicArticle()" class="px-3.5 py-1.5 bg-white text-emerald-700 rounded-xl text-xs font-bold shadow active:scale-95 transition-transform flex items-center gap-1">
                         <i class="fa-solid fa-arrows-rotate"></i> 更新延伸文章
                     </button>
                 </div>
-                <h2 class="text-xl font-bold" id="ai-article-card-title">階段 1: 基礎細胞結構與化學成分</h2>
-                <p class="text-xs text-emerald-100 leading-relaxed">英文句子下方附帶繁體中文對照，播放朗讀時僅發音英文句子。</p>
+                <h2 class="text-xl font-bold" id="ai-article-card-title">階段 1: 細胞結構與化學成分</h2>
+                <p class="text-xs text-emerald-100 leading-relaxed">英文句下方附帶繁體中文對照，點擊句字可獨自朗讀，點播放鍵按順序全文朗讀。</p>
             </div>
 
             <!-- 主文章內容容器 -->
@@ -172,7 +161,7 @@
 
                 <!-- 逐句容器 -->
                 <div id="article-body-container" class="space-y-4 pt-1">
-                    <!-- JS 動態生成 -->
+                    <!-- JS 動態渲染 -->
                 </div>
             </div>
         </section>
@@ -196,7 +185,7 @@
             </div>
 
             <div id="mcat-questions-container" class="space-y-4">
-                <!-- JS 動態生成 -->
+                <!-- JS 動態渲染 -->
             </div>
         </section>
 
@@ -207,7 +196,7 @@
                     <span id="player-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md">
                         跟讀播報器
                     </span>
-                    <span class="text-xs text-emerald-100 font-medium">背景播放支援中</span>
+                    <span class="text-xs text-emerald-100 font-medium">背景播放支援</span>
                 </div>
 
                 <div>
@@ -233,7 +222,7 @@
             </div>
 
             <div id="vocab-list-container" class="space-y-3">
-                <!-- JS 動態生成 -->
+                <!-- JS 動態渲染 -->
             </div>
         </section>
 
@@ -245,7 +234,6 @@
             </div>
 
             <div class="w-full h-[380px] relative">
-                
                 <!-- 正面 -->
                 <div id="fc-front" onclick="flipToBack()" class="w-full h-full rounded-3xl bg-iosCard dark:bg-iosDarkCard shadow-xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center justify-between cursor-pointer transition-all">
                     <span id="fc-front-cefr" class="px-3.5 py-1 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 font-extrabold text-xs rounded-full">
@@ -293,124 +281,178 @@
     </main>
 
     <script>
-        // 四大階段體系化教材數據庫
+        // 醫學院 4 大階段完整體系資料庫
         const stageCurriculum = {
             1: {
-                badge: "Stage 1: 基礎細胞與生物分子",
+                badge: "Stage 1: 細胞結構與生物分子",
                 article: {
-                    title: "Stage 1: Cell Biology & Biomolecules (細胞生物學基礎)",
+                    title: "Cellular Structure & Major Biomolecules (細胞結構與生物巨分子)",
                     cefr: "B1",
-                    category: "醫學院/生物學",
+                    category: "醫學院/細胞生物學",
                     sentences: [
-                        { text: "Eukaryotic cells contain specialized organelles wrapped in lipid membranes.", zh: "真核細胞包含包裹於脂質膜中的專化胞器。" },
-                        { text: "The plasma membrane regulates selectively permeability via protein channels.", zh: "細胞膜透過蛋白質通道調節選擇性通透性。" },
-                        { text: "Proteins, carbohydrates, lipids, and nucleic acids constitute the four major macromolecules.", zh: "蛋白質、醣類、脂質與核酸構成了四大主要生物巨分子。" },
-                        { text: "Phospholipids form amphipathic bilayers essential for membrane fluidity.", zh: "磷脂質形成對於膜流動性至關重要的兩親性雙層結構。" }
+                        { text: "Eukaryotic cells contain membrane-bound organelles that isolate specialized metabolic reactions.", zh: "真核細胞包含膜狀胞器，能分隔專化的代謝反應。" },
+                        { text: "The plasma membrane is a phospholipid bilayer with embedded transport proteins.", zh: "細胞膜是由磷脂質雙層及嵌入的運輸蛋白質構成。" },
+                        { text: "Proteins, carbohydrates, lipids, and nucleic acids form the structural foundation of life.", zh: "蛋白質、醣類、脂質與核酸構成了生命的結構基礎。" },
+                        { text: "Mitochondria produce ATP through aerobic cellular respiration.", zh: "粒線體透過有氧細胞呼吸作用產生 ATP。" },
+                        { text: "Lysosomes contain hydrolytic enzymes responsible for degrading cellular waste.", zh: "溶體包含水解酵素，負責降解細胞廢棄物。" }
                     ]
                 },
                 mcat: [
                     {
-                        qEn: "Which organelle is primarily responsible for lipid synthesis and drug detoxification?",
-                        qZh: "哪一個胞器主要負責脂質合成與藥物解毒作用？",
+                        qEn: "Which organelle is primarily responsible for lipid synthesis and steroid production?",
+                        qZh: "哪一個胞器主要負責脂質合成與固醇類產生？",
                         optsEn: ["Rough Endoplasmic Reticulum", "Smooth Endoplasmic Reticulum", "Golgi Apparatus", "Lysosome"],
                         optsZh: ["粗糙面內質網", "平滑面內質網", "高基氏體", "溶體"],
                         ans: 1,
-                        explainEn: "Smooth ER synthesizes lipids, phospholipids, and steroids while catalyzing drug detoxification.",
-                        explainZh: "平滑面內質網合成脂質、磷脂質與固醇類，同時催化藥物解毒。"
+                        explainEn: "Smooth ER synthesizes lipids and steroids while detoxifying metabolic byproducts.",
+                        explainZh: "平滑面內質網合成脂質與固醇，同時解毒代謝副產物。"
+                    },
+                    {
+                        qEn: "Which component of the phospholipid bilayer renders it amphipathic?",
+                        qZh: "磷脂質雙層中的哪一部分使其具有兩親性（Amphipathic）？",
+                        optsEn: ["Hydrophilic phosphate head and hydrophobic fatty acid tails", "Nonpolar phosphate head and polar tails", "Carbohydrate chains attached to proteins", "Cholesterol ring systems only"],
+                        optsZh: ["親水性磷酸頭部與疏水性脂肪酸尾部", "非極性磷酸頭部與極性尾部", "附著於蛋白質的碳水化合物鏈", "僅膽固醇環狀系統"],
+                        ans: 0,
+                        explainEn: "The charged phosphate head is polar (hydrophilic) while hydrocarbon tails are nonpolar (hydrophobic).",
+                        explainZh: "帶電的磷酸頭部為極性（親水），而碳氫尾部為非極性（疏水）。"
                     }
                 ],
                 words: [
-                    { word: "organelle", phonetic: "[ˌɔːrɡəˈnɛl]", pos: "n.", meaning: "胞器", cefr: "B1", sentenceEn: "Organelles carry out specific cellular functions.", sentenceZh: "胞器執行特定的細胞功能。" },
-                    { word: "phospholipid", phonetic: "[ˌfɑːsfəʊˈlɪpɪd]", pos: "n.", meaning: "磷脂質", cefr: "B2", sentenceEn: "Phospholipids assemble into cell membranes.", sentenceZh: "磷脂質組裝成細胞膜。" },
-                    { word: "permeability", phonetic: "[ˌpɜːrmiəˈbɪləti]", pos: "n.", meaning: "通透性", cefr: "B2", sentenceEn: "Membrane permeability determines nutrient transport.", sentenceZh: "膜通透性決定營養素運輸。" },
-                    { word: "macromolecule", phonetic: "[ˌmækrəʊˈmɑːlɪkjuːl]", pos: "n.", meaning: "巨分子", cefr: "B1", sentenceEn: "Macromolecules drive biological life activities.", sentenceZh: "巨分子驅動生物生命活動。" }
+                    { word: "organelle", phonetic: "[ˌɔːrɡəˈnɛl]", pos: "n.", meaning: "胞器", cefr: "B1", sentenceEn: "Organelles compartmentalize biological activities.", sentenceZh: "胞器將生物活性分隔化。" },
+                    { word: "phospholipid", phonetic: "[ˌfɑːsfəʊˈlɪpɪd]", pos: "n.", meaning: "磷脂質", cefr: "B2", sentenceEn: "Phospholipids form biological membranes.", sentenceZh: "磷脂質形成生物膜。" },
+                    { word: "mitochondria", phonetic: "[ˌmaɪtəʊˈkɑːndriə]", pos: "n.", meaning: "粒線體", cefr: "B1", sentenceEn: "Mitochondria are the powerhouse of the cell.", sentenceZh: "粒線體是細胞的能量發電廠。" },
+                    { word: "hydrolytic", phonetic: "[ˌhaɪdrəˈlɪtɪk]", pos: "adj.", meaning: "水解的", cefr: "B2", sentenceEn: "Lysosomes carry hydrolytic enzymes.", sentenceZh: "溶體攜帶水解酵素。" }
                 ]
             },
             2: {
-                badge: "Stage 2: 酵素動力學與抑制",
+                badge: "Stage 2: 酵素動力學與抑制作用",
                 article: {
-                    title: "Stage 2: Enzyme Kinetics & Regulation (酵素動力學與調節)",
+                    title: "Enzyme Kinetics & Inhibitory Mechanisms (酵素動力學與抑制機制)",
                     cefr: "B2",
-                    category: "生物化學",
+                    category: "生物化學/酵素學",
                     sentences: [
-                        { text: "Enzymes act as biological catalysts by lowering activation energy requirements.", zh: "酵素透過降低活化能需求來扮演生物催化劑的角色。" },
-                        { text: "Competitive inhibitors bind to active sites and elevate the apparent Km.", zh: "競爭性抑制劑結合至活性位點，並提高表觀 Km 值。" },
-                        { text: "Noncompetitive inhibitors bind to allosteric sites without altering substrate affinity.", zh: "非競爭性抑制劑結合至別構位點，不改變受質親和力。" },
-                        { text: "Allosteric enzymes exhibit sigmoidal substrate saturation kinetics.", zh: "別構酵素展現 S 型受質飽和動力學曲線。" }
+                        { text: "Enzymes are biological catalysts that lower activation energy without changing Gibbs free energy.", zh: "酵素是生物催化劑，能在不改變吉布斯自由能的情況下降低活化能。" },
+                        { text: "The Michaelis-Menten equation describes the rate of enzymatic reactions as a function of substrate concentration.", zh: "米氏方程將酵素反應速率描述為受質濃度的函數。" },
+                        { text: "Competitive inhibitors bind to the active site and increase the apparent Km value.", zh: "競爭性抑制劑結合至活性位點並提高表觀 Km 值。" },
+                        { text: "Noncompetitive inhibitors bind to allosteric sites and decrease maximum reaction velocity Vmax.", zh: "非競爭性抑制劑結合至別構位點並降低最大反應速率 Vmax。" },
+                        { text: "Allosteric enzymes display sigmoidal saturation curves due to cooperativity.", zh: "別構酵素由於協同作用展現 S 型飽和曲線。" }
                     ]
                 },
                 mcat: [
                     {
-                        qEn: "What effect does a competitive inhibitor have on Vmax and Km?",
-                        qZh: "競爭性抑制劑對 Vmax 與 Km 有何影響？",
-                        optsEn: ["Increases Vmax, unchanged Km", "Unchanged Vmax, increases apparent Km", "Decreases both Vmax and Km", "Decreases Vmax, increases Km"],
-                        optsZh: ["增加 Vmax，Km 不變", "Vmax 不變，增加表觀 Km", "同時降低 Vmax 與 Km", "降低 Vmax，增加 Km"],
-                        ans: 1,
-                        explainEn: "Competitive inhibitors compete at active site. High substrate overcomes inhibition, so Vmax is unchanged while apparent Km increases.",
-                        explainZh: "競爭性抑制劑在活性位點競爭。高濃度受質可克服抑制，因此 Vmax 不變，表觀 Km 增加。"
+                        qEn: "How does a competitive inhibitor alter the Lineweaver-Burk plot?",
+                        qZh: "競爭性抑制劑如何改變雙倒數圖（Lineweaver-Burk plot）？",
+                        optsEn: ["Changes the x-intercept while y-intercept remains constant", "Changes the y-intercept while x-intercept remains constant", "Shifts the entire line downwards vertically", "Decreases both slope and intercepts"],
+                        optsZh: ["改變 x 軸截距，y 軸截距保持不變", "改變 y 軸截距，x 軸截距保持不變", "將整條線垂直向下平移", "同時降低斜率與截距"],
+                        ans: 0,
+                        explainEn: "Vmax is unchanged (1/Vmax y-intercept same), but Km increases (-1/Km x-intercept moves closer to zero).",
+                        explainZh: "Vmax 不變（y 軸截距 1/Vmax 相同），但 Km 增加（x 軸截距 -1/Km 向原點靠攏）。"
                     }
                 ],
                 words: [
-                    { word: "catalyst", phonetic: "[ˈkætəlɪst]", pos: "n.", meaning: "催化劑", cefr: "B2", sentenceEn: "Enzymes are natural biological catalysts.", sentenceZh: "酵素是天然的生物催化劑。" },
-                    { word: "allosteric", phonetic: "[ˌælɵˈstɛrɪk]", pos: "adj.", meaning: "別構的；異位調節的", cefr: "C1", sentenceEn: "Allosteric regulation controls metabolic flux.", sentenceZh: "別構調節控制代謝流量。" },
-                    { word: "affinity", phonetic: "[əˈfɪnəti]", pos: "n.", meaning: "親和力", cefr: "B2", sentenceEn: "Substrate affinity is reflected by Km.", sentenceZh: "受質親和力由 Km 反映。" }
+                    { word: "catalyst", phonetic: "[ˈkætəlɪst]", pos: "n.", meaning: "催化劑", cefr: "B2", sentenceEn: "Enzymes act as protein catalysts.", sentenceZh: "酵素扮演蛋白質催化劑。" },
+                    { word: "allosteric", phonetic: "[ˌælɵˈstɛrɪk]", pos: "adj.", meaning: "別構的/異位調節的", cefr: "C1", sentenceEn: "Allosteric sites modulate enzyme conformation.", sentenceZh: "別構位點調節酵素構象。" },
+                    { word: "cooperativity", phonetic: "[kəʊˌɑːpərəˈtɪvəti]", pos: "n.", meaning: "協同作用", cefr: "C1", sentenceEn: "Hemoglobin shows positive cooperativity.", sentenceZh: "血紅素展現正協同作用。" }
                 ]
             },
             3: {
-                badge: "Stage 3: 熱力學與核心代謝",
+                badge: "Stage 3: 熱力學與核心代謝途徑",
                 article: {
-                    title: "Stage 3: Thermodynamics & Metabolic Pathways (熱力學與代謝)",
+                    title: "Thermodynamics & Bioenergetics (熱力學與生物能量學)",
                     cefr: "B2",
                     category: "生物化學/熱力學",
                     sentences: [
-                        { text: "Glycolysis breaks down glucose into pyruvate in the cytoplasm.", zh: "糖解作用於細胞質中將葡萄糖分解為丙酮酸。" },
-                        { text: "The citric acid cycle generates reduced NADH and FADH2 coenzymes.", zh: "檸檬酸循環產生還原態的 NADH 與 FADH2 輔酶。" },
-                        { text: "Electron transport chain establishes a proton gradient across mitochondrial membranes.", zh: "電子傳遞鏈跨粒線體膜建立質子濃度梯度。" },
-                        { text: "ATP synthase couples proton motive force to phosphorylation.", zh: "ATP 合成酶將質子動能偶聯至磷酸化作用。" }
+                        { text: "Glycolysis oxidizes glucose into two pyruvate molecules in the cell cytosol.", zh: "糖解作用於細胞質基質中將葡萄糖氧化為兩個丙酮酸分子。" },
+                        { text: "Under aerobic conditions, pyruvate enters the mitochondrial matrix for decarboxylation.", zh: "在有氧條件下，丙酮酸進入粒線體基質進行脫碳作用。" },
+                        { text: "The Citric Acid Cycle produces reduced electron carriers NADH and FADH2.", zh: "檸檬酸循環產生還原態電子載體 NADH 與 FADH2。" },
+                        { text: "Oxidative phosphorylation utilizes a proton gradient to drive ATP synthesis.", zh: "氧化磷酸化利用質子梯度來驅動 ATP 合成。" }
                     ]
                 },
                 mcat: [
                     {
-                        qEn: "Where does the citric acid cycle occur in eukaryotic cells?",
-                        qZh: "真核細胞中檸檬酸循環發生於何處？",
-                        optsEn: ["Cytosol", "Mitochondrial Matrix", "Intermembrane Space", "Nucleolus"],
-                        optsZh: ["細胞質基質", "粒線體基質", "膜間隙", "核仁"],
+                        qEn: "Where does the Citric Acid Cycle take place in human eukaryotic cells?",
+                        qZh: "人體真核細胞中的檸檬酸循環發生於何處？",
+                        optsEn: ["Cytosol", "Mitochondrial Matrix", "Mitochondrial Intermembrane Space", "Endoplasmic Reticulum Lumen"],
+                        optsZh: ["細胞質基質", "粒線體基質", "粒線體膜間隙", "內質網腔"],
                         ans: 1,
-                        explainEn: "TCA cycle enzymes operate in the mitochondrial matrix.",
-                        explainZh: "檸檬酸循環的酵素於粒線體基質中運作。"
+                        explainEn: "The enzymes responsible for the Krebs Cycle are located inside the mitochondrial matrix.",
+                        explainZh: "負責克氏循環的酵素部位於粒線體基質內部。"
                     }
                 ],
                 words: [
-                    { word: "glycolysis", phonetic: "[ɡlaɪˈkɑːləsɪs]", pos: "n.", meaning: "糖解作用", cefr: "C1", sentenceEn: "Glycolysis yields a net 2 ATP molecules.", sentenceZh: "糖解作用淨產生 2 個 ATP 分子。" },
-                    { word: "phosphorylation", phonetic: "[ˌfɑːsfɔːrəˈleɪʃn]", pos: "n.", meaning: "磷酸化", cefr: "C1", sentenceEn: "Oxidative phosphorylation generates vast ATP.", sentenceZh: "氧化磷酸化產生大量 ATP。" }
+                    { word: "glycolysis", phonetic: "[ɡlaɪˈkɑːləsɪs]", pos: "n.", meaning: "糖解作用", cefr: "C1", sentenceEn: "Glycolysis yields net two ATP molecules.", sentenceZh: "糖解作用淨產生兩個 ATP 分子。" },
+                    { word: "phosphorylation", phonetic: "[ˌfɑːsfɔːrəˈleɪʃn]", pos: "n.", meaning: "磷酸化作用", cefr: "C1", sentenceEn: "Substrate-level phosphorylation forms ATP.", sentenceZh: "受質層級磷酸化形成 ATP。" }
                 ]
             },
             4: {
-                badge: "Stage 4: 分子遺傳與有機機制",
+                badge: "Stage 4: 分子遺傳與有機化學機制",
                 article: {
-                    title: "Stage 4: Molecular Genetics & Reaction Mechanisms (分子遺傳與有機機制)",
+                    title: "Molecular Genetics & Organic Mechanisms (分子遺傳與有機機制)",
                     cefr: "C1",
                     category: "分子生物/有機化學",
                     sentences: [
-                        { text: "DNA polymerase synthesizes complementary strands in 5' to 3' direction.", zh: "DNA 聚合酶以 5' 至 3' 方向合成互補股。" },
-                        { text: "Transcription produces pre-mRNA which undergoes 5' capping and splicing.", zh: "轉錄作用產生預備 mRNA，並經過 5' 端帽加冠與剪接。" },
-                        { text: "Nucleophilic substitution reactions depend on steric hindrance and solvent polarity.", zh: "親核取代反應取決於位阻效應與溶劑極性。" }
+                        { text: "DNA replication is semiconservative and proceeds in a 5' to 3' direction.", zh: "DNA 複製為半保留性，並以 5' 至 3' 方向進行。" },
+                        { text: "RNA polymerase synthesizes precursor mRNA during transcription.", zh: "RNA 聚合酶於轉錄期間合成前體 mRNA。" },
+                        { text: "Nucleophilic substitution (SN1 and SN2) reaction rates depend on steric hindrance and solvent choice.", zh: "親核取代反應（SN1 與 SN2）的速率取決於位阻效應與溶劑選擇。" },
+                        { text: "Chirality and stereochemistry dictate biological recognition in pharmaceutical receptors.", zh: "手性與立體化學決定了藥物受體中的生物辨識。" }
                     ]
                 },
                 mcat: [
                     {
-                        qEn: "In DNA replication, which enzyme unwinds the double helix?",
-                        qZh: "在 DNA 複製中，哪一種酵素解開雙螺旋？",
-                        optsEn: ["Helicase", "Ligase", "Topoisomerase", "Primase"],
-                        optsZh: ["解旋酶", "連接酶", "拓撲異構酶", "引導酶"],
+                        qEn: "Which statement correctly compares SN1 and SN2 reactions?",
+                        qZh: "下列何者正確比較了 SN1 與 SN2 反應？",
+                        optsEn: ["SN1 proceeds via a carbocation intermediate; SN2 is a concerted single step", "SN2 is favored by tertiary substrates", "SN1 reaction rates depend on nucleophile concentration", "SN2 leads to racemization of stereocenters"],
+                        optsZh: ["SN1 透過碳陽離子中間體進行；SN2 為單一步驟協同反應", "SN2 偏好三級受質", "SN1 反應速率取決於親核試劑濃度", "SN2 導致立體中心的消旋化"],
                         ans: 0,
-                        explainEn: "Helicase breaks hydrogen bonds to unwind DNA double helix.",
-                        explainZh: "解旋酶破壞氫鍵以解開 DNA 雙螺旋。"
+                        explainEn: "SN1 forms a carbocation (stepwise) whereas SN2 involves backside attack in one step leading to inversion.",
+                        explainZh: "SN1 形成碳陽離子（分步），而 SN2 在單一步驟中進行背向攻擊並導致構象翻轉。"
                     }
                 ],
                 words: [
-                    { word: "polymerase", phonetic: "[pəˈlɪməreɪs]", pos: "n.", meaning: "聚合酶", cefr: "C1", sentenceEn: "RNA polymerase initiates transcription.", sentenceZh: "RNA 聚合酶啟動轉錄。" },
-                    { word: "nucleophile", phonetic: "[ˈnjuːkliəfaɪl]", pos: "n.", meaning: "親核試劑", cefr: "C1", sentenceEn: "Nucleophiles attack electrophilic centers.", sentenceZh: "親核試劑攻擊親電中心。" }
+                    { word: "polymerase", phonetic: "[pəˈlɪməreɪs]", pos: "n.", meaning: "聚合酶", cefr: "C1", sentenceEn: "DNA polymerase elongates daughter strands.", sentenceZh: "DNA 聚合酶延長子股。" },
+                    { word: "nucleophile", phonetic: "[ˈnjuːkliəfaɪl]", pos: "n.", meaning: "親核試劑", cefr: "C1", sentenceEn: "Nucleophiles donate electron pairs.", sentenceZh: "親核試劑捐贈電子對。" },
+                    { word: "stereochemistry", phonetic: "[ˌstɛriəʊˈkɛmɪstri]", pos: "n.", meaning: "立體化學", cefr: "C1", sentenceEn: "Stereochemistry governs enzyme specificity.", sentenceZh: "立體化學支配酵素專一性。" }
+                ]
+            }
+        };
+
+        // 延伸自動生成文章資料庫
+        const generatedExtensionArticles = {
+            1: {
+                title: "Extension 1: Advanced Membrane Fluidity (膜流動性進階)",
+                cefr: "B2",
+                category: "醫學院/細胞生物",
+                sentences: [
+                    { text: "Cholesterol acts as a bidirectional temperature buffer in animal cell membranes.", zh: "膽固醇在動物細胞膜中充當雙向溫度緩衝劑。" },
+                    { text: "At high temperatures, cholesterol restricts phospholipid movement to stabilize membranes.", zh: "高溫下膽固醇限制磷脂質運動以穩定薄膜。" },
+                    { text: "At low temperatures, cholesterol prevents hydrophobic tails from packing tightly.", zh: "低溫下膽固醇防止疏水性尾部緊密堆積。" }
+                ]
+            },
+            2: {
+                title: "Extension 2: Cooperativity & Hemoglobin (協同性與血紅素)",
+                cefr: "C1",
+                category: "生物化學/蛋白質",
+                sentences: [
+                    { text: "Oxygen binding to one heme subunit induces conformational changes in adjacent subunits.", zh: "氧氣與一個血基質次單元的結合會引發相鄰次單元的構象改變。" },
+                    { text: "The Bohr effect demonstrates how lower pH reduces oxygen affinity in metabolizing tissues.", zh: "波耳效應展示了較低的 pH 值如何降低代謝組織中的氧親和力。" }
+                ]
+            },
+            3: {
+                title: "Extension 3: Oxidative Phosphorylation & Uncouplers (氧化磷酸化與去偶聯劑)",
+                cefr: "C1",
+                category: "生物化學/代謝",
+                sentences: [
+                    { text: "Uncoupling agents dissipate the proton gradient across the inner mitochondrial membrane.", zh: "去偶聯劑會消除跨粒線體內膜的質子梯度。" },
+                    { text: "As a result, energy is released as heat rather than trapped as ATP.", zh: "結果能量以熱能形式釋放，而非儲存為 ATP。" }
+                ]
+            },
+            4: {
+                title: "Extension 4: Epigenetics & Histone Modification (表觀遺傳學)",
+                cefr: "C1",
+                category: "分子遺傳",
+                sentences: [
+                    { text: "Histone acetylation by HAT enzymes decreases positive charge on histones.", zh: "由 HAT 酵素進行的組蛋白乙醯化降低了組蛋白上的正電荷。" },
+                    { text: "This relaxes chromatin structure and increases gene transcription access.", zh: "這鬆弛了染色質結構並增加了基因轉錄的可及性。" }
                 ]
             }
         };
@@ -422,6 +464,7 @@
         let currentSentenceIdx = 0;
         let mcatShowZh = true;
         let fcIndex = 0;
+        let autoPlayTimer = null;
         const synth = window.speechSynthesis;
 
         function speakPromise(text) {
@@ -447,7 +490,6 @@
             const data = stageCurriculum[stageNum];
             document.getElementById('current-stage-badge').innerText = data.badge;
 
-            // Update Stage Buttons Style
             for (let i = 1; i <= 4; i++) {
                 const btn = document.getElementById(`stage-btn-${i}`);
                 if (i === stageNum) {
@@ -472,6 +514,17 @@
             loadAnkiCard();
         }
 
+        function generateDynamicArticle() {
+            const ext = generatedExtensionArticles[currentStage];
+            if (ext) {
+                currentArticle = ext;
+                document.getElementById('article-title').innerText = currentArticle.title;
+                document.getElementById('article-category').innerText = currentArticle.category;
+                document.getElementById('article-cefr-badge').innerText = `CEFR ${currentArticle.cefr}`;
+                renderArticleBody();
+            }
+        }
+
         function renderArticleBody() {
             const container = document.getElementById('article-body-container');
             container.innerHTML = '';
@@ -479,7 +532,11 @@
                 const block = document.createElement('div');
                 block.id = `sentence-${idx}`;
                 block.className = "p-3 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-1 transition-all cursor-pointer";
-                block.onclick = () => { currentSentenceIdx = idx; highlightSentence(idx); speakPromise(s.text); };
+                block.onclick = () => { 
+                    currentSentenceIdx = idx; 
+                    highlightSentence(idx); 
+                    speakPromise(s.text); 
+                };
                 block.innerHTML = `
                     <p class="text-base font-serif font-medium text-slate-900 dark:text-slate-100 leading-snug">
                         <span class="text-xs font-bold text-emerald-500 mr-2">${idx + 1}.</span>${s.text}
@@ -492,9 +549,7 @@
 
         async function togglePlayArticle() {
             if (isPlayingArticle) {
-                isPlayingArticle = false;
-                synth.cancel();
-                document.getElementById('play-article-icon').className = "fa-solid fa-play";
+                stopArticlePlay();
             } else {
                 isPlayingArticle = true;
                 document.getElementById('play-article-icon').className = "fa-solid fa-pause";
@@ -504,9 +559,15 @@
                     highlightSentence(i);
                     await speakPromise(currentArticle.sentences[i].text);
                 }
-                isPlayingArticle = false;
-                document.getElementById('play-article-icon').className = "fa-solid fa-play";
+                stopArticlePlay();
             }
+        }
+
+        function stopArticlePlay() {
+            isPlayingArticle = false;
+            synth.cancel();
+            const icon = document.getElementById('play-article-icon');
+            if (icon) icon.className = "fa-solid fa-play";
         }
 
         function highlightSentence(idx) {
@@ -622,6 +683,7 @@
         }
 
         function switchMainTab(tab) {
+            stopArticlePlay();
             document.getElementById('view-stories').classList.add('hidden');
             document.getElementById('view-mcat').classList.add('hidden');
             document.getElementById('view-vocab').classList.add('hidden');
@@ -649,7 +711,9 @@
             }
         }
 
-        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); }
+        function toggleDarkMode() { 
+            document.documentElement.classList.toggle('dark'); 
+        }
 
         window.onload = function() {
             switchStage(1);
