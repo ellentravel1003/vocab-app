@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Readle Bio & MCAT 醫學院進度學習平台</title>
+    <title>Readle Bio & 5000 Vocab 雙語學習平台</title>
 
     <!-- iOS Native Web App Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -66,12 +66,12 @@
         <div class="max-w-2xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-600 to-blue-600 flex items-center justify-center text-white shadow-md shadow-emerald-500/20">
-                    <i class="fa-solid fa-dna text-lg"></i>
+                    <i class="fa-solid fa-book-bookmark text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg tracking-tight leading-none">Readle Bio & MCAT</h1>
+                    <h1 class="font-bold text-lg tracking-tight leading-none">Readle Bio & Vocab</h1>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium flex items-center gap-1.5">
-                        <span id="domain-badge-label" class="text-emerald-600 dark:text-emerald-400 font-bold">🧬 醫學院生物/化學/生化專科</span>
+                        <span id="domain-badge-label" class="text-emerald-600 dark:text-emerald-400 font-bold">📚 基礎 5000 單字 + 專科雙軌系統</span>
                     </p>
                 </div>
             </div>
@@ -87,10 +87,20 @@
 
     <main class="max-w-2xl mx-auto px-4 pt-4">
 
-        <!-- 學習階段進度條 (Stages) -->
-        <div id="stage-bar-container" class="space-y-2 mb-4">
+        <!-- 主模式切換：基礎5000單字 vs 生物化學專科 -->
+        <div class="grid grid-cols-2 gap-2 p-1.5 bg-slate-200/80 dark:bg-slate-800 rounded-2xl mb-4 font-bold text-xs">
+            <button id="mode-5000-btn" onclick="switchMode('5000')" class="py-3 rounded-xl text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-700 shadow flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-book"></i> 📚 基礎 5000 單字
+            </button>
+            <button id="mode-mcat-btn" onclick="switchMode('mcat')" class="py-3 rounded-xl text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-dna"></i> 🧬 生物/化學/生化專科
+            </button>
+        </div>
+
+        <!-- 醫學院階段進度條 (當切換到專科模式時顯示) -->
+        <div id="mcat-stage-bar" class="space-y-2 mb-4 hidden">
             <div class="flex justify-between items-center px-1">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">醫學院階段選擇 (Curriculum Stage)</span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">醫學院進度 (Stage Curriculum)</span>
                 <span id="current-stage-badge" class="text-xs font-extrabold text-emerald-600">Stage 1: 細胞結構與生物分子</span>
             </div>
             <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
@@ -101,16 +111,16 @@
             </div>
         </div>
 
-        <!-- 頁籤選單 -->
+        <!-- 功能頁籤選單 -->
         <div class="grid grid-cols-4 bg-slate-200/80 dark:bg-slate-800 p-1.5 rounded-2xl mb-5 text-xs font-bold shadow-inner">
             <button id="tab-stories-btn" onclick="switchMainTab('stories')" class="py-2.5 rounded-xl text-emerald-600 bg-white dark:bg-slate-700 shadow transition-all">
-                📖 循序文章
+                📖 教學文章
             </button>
             <button id="tab-mcat-btn" onclick="switchMainTab('mcat')" class="py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all">
-                🎓 MCAT試題
+                🎓 考題練習
             </button>
             <button id="tab-vocab-btn" onclick="switchMainTab('vocab')" class="py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all">
-                🗣️ 階段單字
+                🗣️ 單字跟讀
             </button>
             <button id="tab-flashcard-btn" onclick="switchMainTab('flashcard')" class="py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all">
                 🎴 Anki 記憶
@@ -122,28 +132,28 @@
             <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white p-5 rounded-3xl shadow-xl space-y-3">
                 <div class="flex justify-between items-center">
                     <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md">
-                        雙語對照教學 (朗讀純英文)
+                        雙語對照 (朗讀僅英文)
                     </span>
-                    <button onclick="generateDynamicArticle()" class="px-3.5 py-1.5 bg-white text-emerald-700 rounded-xl text-xs font-bold shadow active:scale-95 transition-transform flex items-center gap-1">
+                    <button onclick="generateExtensionArticle()" class="px-3.5 py-1.5 bg-white text-emerald-700 rounded-xl text-xs font-bold shadow active:scale-95 transition-transform flex items-center gap-1">
                         <i class="fa-solid fa-arrows-rotate"></i> 更新延伸文章
                     </button>
                 </div>
-                <h2 class="text-xl font-bold" id="ai-article-card-title">階段 1: 細胞結構與化學成分</h2>
-                <p class="text-xs text-emerald-100 leading-relaxed">英文句下方附帶繁體中文對照，點擊句字可獨自朗讀，點播放鍵按順序全文朗讀。</p>
+                <h2 class="text-xl font-bold" id="ai-article-card-title">基礎 5000 高頻短文選集</h2>
+                <p class="text-xs text-emerald-100 leading-relaxed">英文句下方附帶繁體中文翻譯，點擊播放鈕按順序全文朗讀（只會朗讀英文）。</p>
             </div>
 
             <!-- 主文章內容容器 -->
             <div class="bg-iosCard dark:bg-iosDarkCard rounded-3xl p-6 shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-5">
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
                     <span id="article-cefr-badge" class="px-3 py-1 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-300 font-extrabold text-xs">
-                        CEFR B1
+                        CEFR A1~A2
                     </span>
-                    <span id="article-category" class="text-xs font-bold text-slate-400">醫學院/生物學基礎</span>
+                    <span id="article-category" class="text-xs font-bold text-slate-400">基礎核心句型</span>
                 </div>
 
                 <div>
                     <h2 id="article-title" class="text-xl sm:text-2xl font-bold leading-tight text-slate-900 dark:text-white mb-2">
-                        Cellular Structure and Biomolecules
+                        Daily Routines and Essential Skills
                     </h2>
                     
                     <div class="bg-slate-50 dark:bg-slate-800/80 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700 flex items-center justify-between gap-2 mt-3">
@@ -166,14 +176,14 @@
             </div>
         </section>
 
-        <!-- 2. MCAT 試題 VIEW -->
+        <!-- 2. 試題練習 VIEW -->
         <section id="view-mcat" class="space-y-4 hidden">
             <div class="bg-iosCard dark:bg-iosDarkCard rounded-3xl p-5 shadow-sm border border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
                 <div>
                     <h2 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap text-blue-500"></i> MCAT 歷屆試題擬真練習
+                        <i class="fa-solid fa-graduation-cap text-blue-500"></i> 歷屆經典試題練習
                     </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">目前階段對應考題</p>
+                    <p class="text-xs text-slate-400 mt-0.5">多選題擬真測驗</p>
                 </div>
 
                 <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl">
@@ -217,8 +227,25 @@
                 </div>
             </div>
 
+            <!-- CEFR 切換過濾選單 (在 5000 單字模式時顯示) -->
+            <div id="cefr-filter-bar" class="space-y-2">
+                <div class="flex gap-1.5 overflow-x-auto no-scrollbar py-1">
+                    <button onclick="filterCEFR('ALL')" id="cefr-btn-ALL" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 text-white shadow">ALL</button>
+                    <button onclick="filterCEFR('A1')" id="cefr-btn-A1" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">A1</button>
+                    <button onclick="filterCEFR('A2')" id="cefr-btn-A2" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">A2</button>
+                    <button onclick="filterCEFR('B1')" id="cefr-btn-B1" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">B1</button>
+                    <button onclick="filterCEFR('B2')" id="cefr-btn-B2" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">B2</button>
+                    <button onclick="filterCEFR('C1')" id="cefr-btn-C1" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60">C1</button>
+                </div>
+                <!-- 搜尋框 -->
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                    <input type="text" id="vocab-search-input" oninput="handleVocabSearch()" placeholder="搜尋 5000 單字、音標或中文翻譯..." class="w-full pl-9 pr-4 py-2 rounded-2xl bg-iosCard dark:bg-iosDarkCard border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+            </div>
+
             <div class="flex justify-between items-center px-1">
-                <span id="vocab-count-label" class="text-xs font-bold text-slate-400">已載入當前階段單字</span>
+                <span id="vocab-count-label" class="text-xs font-bold text-slate-400">已載入單字</span>
             </div>
 
             <div id="vocab-list-container" class="space-y-3">
@@ -229,7 +256,7 @@
         <!-- 4. Anki 閃卡 VIEW -->
         <section id="view-flashcard" class="space-y-4 hidden">
             <div class="flex justify-between items-center px-1">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">🎴 Anki 記憶卡 (當前進度)</span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">🎴 Anki 記憶卡片</span>
                 <span id="fc-count-label" class="text-xs font-bold text-emerald-600">卡片 1 / 10</span>
             </div>
 
@@ -237,12 +264,12 @@
                 <!-- 正面 -->
                 <div id="fc-front" onclick="flipToBack()" class="w-full h-full rounded-3xl bg-iosCard dark:bg-iosDarkCard shadow-xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center justify-between cursor-pointer transition-all">
                     <span id="fc-front-cefr" class="px-3.5 py-1 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 font-extrabold text-xs rounded-full">
-                        CEFR B1
+                        CEFR A1
                     </span>
 
                     <div class="text-center space-y-2">
-                        <h2 id="fc-front-word" class="text-4xl font-black text-slate-900 dark:text-white tracking-wide">organelle</h2>
-                        <p id="fc-front-phonetic" class="text-base font-mono text-slate-400">[ˌɔːrɡəˈnɛl]</p>
+                        <h2 id="fc-front-word" class="text-4xl font-black text-slate-900 dark:text-white tracking-wide">primary</h2>
+                        <p id="fc-front-phonetic" class="text-base font-mono text-slate-400">[ˈpraɪmeri]</p>
                     </div>
 
                     <button onclick="event.stopPropagation(); speakText(document.getElementById('fc-front-word').innerText)" class="w-14 h-14 rounded-full bg-emerald-50 dark:bg-slate-800 text-emerald-600 flex items-center justify-center text-xl shadow-sm active:scale-90 transition-transform">
@@ -256,10 +283,10 @@
                 <div id="fc-back" onclick="flipToFront()" class="hidden w-full h-full rounded-3xl bg-slate-900 text-white shadow-xl p-6 flex flex-col justify-between cursor-pointer transition-all">
                     <div class="space-y-2">
                         <div class="flex justify-between items-center">
-                            <span id="fc-back-pos" class="text-sm font-bold text-emerald-400">n.</span>
-                            <span class="text-xs text-slate-400">Anki 驗證</span>
+                            <span id="fc-back-pos" class="text-sm font-bold text-emerald-400">adj.</span>
+                            <span class="text-xs text-slate-400">Anki 記憶驗證</span>
                         </div>
-                        <h3 id="fc-back-meaning" class="text-2xl font-black text-white">胞器</h3>
+                        <h3 id="fc-back-meaning" class="text-2xl font-black text-white">首要的；基本的</h3>
                         
                         <div class="bg-slate-800/80 p-3 rounded-2xl text-xs space-y-1 border border-slate-700/60 mt-3">
                             <p id="fc-back-sentence-en" class="font-medium text-slate-100 leading-snug"></p>
@@ -281,7 +308,44 @@
     </main>
 
     <script>
-        // 醫學院 4 大階段完整體系資料庫
+        // 1. 基礎 5000 核心高頻單字庫 (精選常見核心詞庫)
+        const basic5000Words = [
+            { word: "primary", phonetic: "[ˈpraɪmeri]", pos: "adj.", meaning: "首要的；基本的", cefr: "A1", sentenceEn: "Safety is our primary concern in this project.", sentenceZh: "在這項計畫中，安全是我們首要關心的事。" },
+            { word: "achieve", phonetic: "[əˈtʃiːv]", pos: "v.", meaning: "達成；實現", cefr: "A2", sentenceEn: "She worked hard to achieve her dream of becoming a doctor.", sentenceZh: "她努力工作以實現成為醫生的夢想。" },
+            { word: "benefit", phonetic: "[ˈbenɪfɪt]", pos: "n.", meaning: "好處；利益", cefr: "A2", sentenceEn: "Regular exercise has many physical and mental benefits.", sentenceZh: "規律運動對身心有許多好處。" },
+            { word: "complex", phonetic: "[ˈkɑːmpleks]", pos: "adj.", meaning: "複雜的", cefr: "B1", sentenceEn: "Human DNA is an extremely complex structure.", sentenceZh: "人類的 DNA 是極度複雜的結構。" },
+            { word: "determine", phonetic: "[dɪˈtɜːrmɪn]", pos: "v.", meaning: "決定；確定", cefr: "B1", sentenceEn: "Experiments help determine the accuracy of hypotheses.", sentenceZh: "實驗有助於確定假說的準確性。" },
+            { word: "evaluate", phonetic: "[ɪˈvæljueɪt]", pos: "v.", meaning: "評估；鑑定", cefr: "B2", sentenceEn: "Doctors evaluate patient symptoms before making a diagnosis.", sentenceZh: "醫師在作出診斷前會先評估患者症狀。" },
+            { word: "fundamental", phonetic: "[ˌfʌndəˈmentl]", pos: "adj.", meaning: "基礎的；根本的", cefr: "B2", sentenceEn: "Understanding cell biology is fundamental to medicine.", sentenceZh: "理解細胞生物學是醫學的基礎。" },
+            { word: "hypothesize", phonetic: "[haɪˈpɑːθəsaɪz]", pos: "v.", meaning: "假定；提出假設", cefr: "C1", sentenceEn: "Scientists hypothesize that climate change affects species migration.", sentenceZh: "科學家假設氣候變遷會影響物種遷移。" },
+            { word: "inevitable", phonetic: "[ɪnˈevɪtəbl]", pos: "adj.", meaning: "不可避免的", cefr: "C1", sentenceEn: "Aging is an inevitable biological process.", sentenceZh: "衰老是不可避免的生物過程。" }
+        ];
+
+        const basic5000Articles = {
+            title: "Daily Routines and Essential Science Skills",
+            cefr: "A1~B1",
+            category: "基礎核心閱讀",
+            sentences: [
+                { text: "Safety is our primary concern in every scientific laboratory experiment.", zh: "在每個科學實驗室實驗中，安全都是我們首要關心的事。" },
+                { text: "Students work hard to achieve high academic standards in science.", zh: "學生們努力工作以在科學領域達到高學術標準。" },
+                { text: "Regular study habits bring significant long-term cognitive benefits.", zh: "規律的習慣能帶來顯著的長期認知好處。" },
+                { text: "Understanding complex cellular systems requires fundamental biological knowledge.", zh: "理解複雜的細胞系統需要基礎的生物學知識。" }
+            ]
+        };
+
+        const basic5000Questions = [
+            {
+                qEn: "What is the synonym of the word 'primary'?",
+                qZh: "單字 'primary' 的同義詞是什麼？",
+                optsEn: ["Essential / Main", "Secondary", "Complicated", "Uncertain"],
+                optsZh: ["主要的 / 首要的", "次要的", "複雜的", "不確定的"],
+                ans: 0,
+                explainEn: "'Primary' means main or most important.",
+                explainZh: "'Primary' 意為主要的或最重要的。"
+            }
+        ];
+
+        // 2. 醫學院 4 大階段專科資料庫
         const stageCurriculum = {
             1: {
                 badge: "Stage 1: 細胞結構與生物分子",
@@ -306,22 +370,12 @@
                         ans: 1,
                         explainEn: "Smooth ER synthesizes lipids and steroids while detoxifying metabolic byproducts.",
                         explainZh: "平滑面內質網合成脂質與固醇，同時解毒代謝副產物。"
-                    },
-                    {
-                        qEn: "Which component of the phospholipid bilayer renders it amphipathic?",
-                        qZh: "磷脂質雙層中的哪一部分使其具有兩親性（Amphipathic）？",
-                        optsEn: ["Hydrophilic phosphate head and hydrophobic fatty acid tails", "Nonpolar phosphate head and polar tails", "Carbohydrate chains attached to proteins", "Cholesterol ring systems only"],
-                        optsZh: ["親水性磷酸頭部與疏水性脂肪酸尾部", "非極性磷酸頭部與極性尾部", "附著於蛋白質的碳水化合物鏈", "僅膽固醇環狀系統"],
-                        ans: 0,
-                        explainEn: "The charged phosphate head is polar (hydrophilic) while hydrocarbon tails are nonpolar (hydrophobic).",
-                        explainZh: "帶電的磷酸頭部為極性（親水），而碳氫尾部為非極性（疏水）。"
                     }
                 ],
                 words: [
                     { word: "organelle", phonetic: "[ˌɔːrɡəˈnɛl]", pos: "n.", meaning: "胞器", cefr: "B1", sentenceEn: "Organelles compartmentalize biological activities.", sentenceZh: "胞器將生物活性分隔化。" },
                     { word: "phospholipid", phonetic: "[ˌfɑːsfəʊˈlɪpɪd]", pos: "n.", meaning: "磷脂質", cefr: "B2", sentenceEn: "Phospholipids form biological membranes.", sentenceZh: "磷脂質形成生物膜。" },
-                    { word: "mitochondria", phonetic: "[ˌmaɪtəʊˈkɑːndriə]", pos: "n.", meaning: "粒線體", cefr: "B1", sentenceEn: "Mitochondria are the powerhouse of the cell.", sentenceZh: "粒線體是細胞的能量發電廠。" },
-                    { word: "hydrolytic", phonetic: "[ˌhaɪdrəˈlɪtɪk]", pos: "adj.", meaning: "水解的", cefr: "B2", sentenceEn: "Lysosomes carry hydrolytic enzymes.", sentenceZh: "溶體攜帶水解酵素。" }
+                    { word: "mitochondria", phonetic: "[ˌmaɪtəʊˈkɑːndriə]", pos: "n.", meaning: "粒線體", cefr: "B1", sentenceEn: "Mitochondria are the powerhouse of the cell.", sentenceZh: "粒線體是細胞的能量發電廠。" }
                 ]
             },
             2: {
@@ -332,27 +386,24 @@
                     category: "生物化學/酵素學",
                     sentences: [
                         { text: "Enzymes are biological catalysts that lower activation energy without changing Gibbs free energy.", zh: "酵素是生物催化劑，能在不改變吉布斯自由能的情況下降低活化能。" },
-                        { text: "The Michaelis-Menten equation describes the rate of enzymatic reactions as a function of substrate concentration.", zh: "米氏方程將酵素反應速率描述為受質濃度的函數。" },
-                        { text: "Competitive inhibitors bind to the active site and increase the apparent Km value.", zh: "競爭性抑制劑結合至活性位點並提高表觀 Km 值。" },
-                        { text: "Noncompetitive inhibitors bind to allosteric sites and decrease maximum reaction velocity Vmax.", zh: "非競爭性抑制劑結合至別構位點並降低最大反應速率 Vmax。" },
-                        { text: "Allosteric enzymes display sigmoidal saturation curves due to cooperativity.", zh: "別構酵素由於協同作用展現 S 型飽和曲線。" }
+                        { text: "The Michaelis-Menten equation describes the rate of enzymatic reactions.", zh: "米氏方程將酵素反應速率描述為受質濃度的函數。" },
+                        { text: "Competitive inhibitors bind to the active site and increase the apparent Km value.", zh: "競爭性抑制劑結合至活性位點並提高表觀 Km 值。" }
                     ]
                 },
                 mcat: [
                     {
                         qEn: "How does a competitive inhibitor alter the Lineweaver-Burk plot?",
                         qZh: "競爭性抑制劑如何改變雙倒數圖（Lineweaver-Burk plot）？",
-                        optsEn: ["Changes the x-intercept while y-intercept remains constant", "Changes the y-intercept while x-intercept remains constant", "Shifts the entire line downwards vertically", "Decreases both slope and intercepts"],
-                        optsZh: ["改變 x 軸截距，y 軸截距保持不變", "改變 y 軸截距，x 軸截距保持不變", "將整條線垂直向下平移", "同時降低斜率與截距"],
+                        optsEn: ["Changes the x-intercept while y-intercept remains constant", "Changes the y-intercept while x-intercept remains constant"],
+                        optsZh: ["改變 x 軸截距，y 軸截距保持不變", "改變 y 軸截距，x 軸截距保持不變"],
                         ans: 0,
-                        explainEn: "Vmax is unchanged (1/Vmax y-intercept same), but Km increases (-1/Km x-intercept moves closer to zero).",
-                        explainZh: "Vmax 不變（y 軸截距 1/Vmax 相同），但 Km 增加（x 軸截距 -1/Km 向原點靠攏）。"
+                        explainEn: "Vmax is unchanged, but Km increases.",
+                        explainZh: "Vmax 不變，但 Km 增加。"
                     }
                 ],
                 words: [
                     { word: "catalyst", phonetic: "[ˈkætəlɪst]", pos: "n.", meaning: "催化劑", cefr: "B2", sentenceEn: "Enzymes act as protein catalysts.", sentenceZh: "酵素扮演蛋白質催化劑。" },
-                    { word: "allosteric", phonetic: "[ˌælɵˈstɛrɪk]", pos: "adj.", meaning: "別構的/異位調節的", cefr: "C1", sentenceEn: "Allosteric sites modulate enzyme conformation.", sentenceZh: "別構位點調節酵素構象。" },
-                    { word: "cooperativity", phonetic: "[kəʊˌɑːpərəˈtɪvəti]", pos: "n.", meaning: "協同作用", cefr: "C1", sentenceEn: "Hemoglobin shows positive cooperativity.", sentenceZh: "血紅素展現正協同作用。" }
+                    { word: "allosteric", phonetic: "[ˌælɵˈstɛrɪk]", pos: "adj.", meaning: "別構的/異位調節的", cefr: "C1", sentenceEn: "Allosteric sites modulate enzyme conformation.", sentenceZh: "別構位點調節酵素構象。" }
                 ]
             },
             3: {
@@ -362,26 +413,13 @@
                     cefr: "B2",
                     category: "生物化學/熱力學",
                     sentences: [
-                        { text: "Glycolysis oxidizes glucose into two pyruvate molecules in the cell cytosol.", zh: "糖解作用於細胞質基質中將葡萄糖氧化為兩個丙酮酸分子。" },
-                        { text: "Under aerobic conditions, pyruvate enters the mitochondrial matrix for decarboxylation.", zh: "在有氧條件下，丙酮酸進入粒線體基質進行脫碳作用。" },
-                        { text: "The Citric Acid Cycle produces reduced electron carriers NADH and FADH2.", zh: "檸檬酸循環產生還原態電子載體 NADH 與 FADH2。" },
-                        { text: "Oxidative phosphorylation utilizes a proton gradient to drive ATP synthesis.", zh: "氧化磷酸化利用質子梯度來驅動 ATP 合成。" }
+                        { text: "Glycolysis oxidizes glucose into two pyruvate molecules in the cytosol.", zh: "糖解作用於細胞質基質中將葡萄糖氧化為兩個丙酮酸分子。" },
+                        { text: "The Citric Acid Cycle produces reduced electron carriers NADH and FADH2.", zh: "檸檬酸循環產生還原態電子載體 NADH 與 FADH2。" }
                     ]
                 },
-                mcat: [
-                    {
-                        qEn: "Where does the Citric Acid Cycle take place in human eukaryotic cells?",
-                        qZh: "人體真核細胞中的檸檬酸循環發生於何處？",
-                        optsEn: ["Cytosol", "Mitochondrial Matrix", "Mitochondrial Intermembrane Space", "Endoplasmic Reticulum Lumen"],
-                        optsZh: ["細胞質基質", "粒線體基質", "粒線體膜間隙", "內質網腔"],
-                        ans: 1,
-                        explainEn: "The enzymes responsible for the Krebs Cycle are located inside the mitochondrial matrix.",
-                        explainZh: "負責克氏循環的酵素部位於粒線體基質內部。"
-                    }
-                ],
+                mcat: [],
                 words: [
-                    { word: "glycolysis", phonetic: "[ɡlaɪˈkɑːləsɪs]", pos: "n.", meaning: "糖解作用", cefr: "C1", sentenceEn: "Glycolysis yields net two ATP molecules.", sentenceZh: "糖解作用淨產生兩個 ATP 分子。" },
-                    { word: "phosphorylation", phonetic: "[ˌfɑːsfɔːrəˈleɪʃn]", pos: "n.", meaning: "磷酸化作用", cefr: "C1", sentenceEn: "Substrate-level phosphorylation forms ATP.", sentenceZh: "受質層級磷酸化形成 ATP。" }
+                    { word: "glycolysis", phonetic: "[ɡlaɪˈkɑːləsɪs]", pos: "n.", meaning: "糖解作用", cefr: "C1", sentenceEn: "Glycolysis yields net two ATP molecules.", sentenceZh: "糖解作用淨產生兩個 ATP 分子。" }
                 ]
             },
             4: {
@@ -392,79 +430,25 @@
                     category: "分子生物/有機化學",
                     sentences: [
                         { text: "DNA replication is semiconservative and proceeds in a 5' to 3' direction.", zh: "DNA 複製為半保留性，並以 5' 至 3' 方向進行。" },
-                        { text: "RNA polymerase synthesizes precursor mRNA during transcription.", zh: "RNA 聚合酶於轉錄期間合成前體 mRNA。" },
-                        { text: "Nucleophilic substitution (SN1 and SN2) reaction rates depend on steric hindrance and solvent choice.", zh: "親核取代反應（SN1 與 SN2）的速率取決於位阻效應與溶劑選擇。" },
-                        { text: "Chirality and stereochemistry dictate biological recognition in pharmaceutical receptors.", zh: "手性與立體化學決定了藥物受體中的生物辨識。" }
+                        { text: "Nucleophilic substitution reaction rates depend on steric hindrance.", zh: "親核取代反應的速率取決於位阻效應與溶劑選擇。" }
                     ]
                 },
-                mcat: [
-                    {
-                        qEn: "Which statement correctly compares SN1 and SN2 reactions?",
-                        qZh: "下列何者正確比較了 SN1 與 SN2 反應？",
-                        optsEn: ["SN1 proceeds via a carbocation intermediate; SN2 is a concerted single step", "SN2 is favored by tertiary substrates", "SN1 reaction rates depend on nucleophile concentration", "SN2 leads to racemization of stereocenters"],
-                        optsZh: ["SN1 透過碳陽離子中間體進行；SN2 為單一步驟協同反應", "SN2 偏好三級受質", "SN1 反應速率取決於親核試劑濃度", "SN2 導致立體中心的消旋化"],
-                        ans: 0,
-                        explainEn: "SN1 forms a carbocation (stepwise) whereas SN2 involves backside attack in one step leading to inversion.",
-                        explainZh: "SN1 形成碳陽離子（分步），而 SN2 在單一步驟中進行背向攻擊並導致構象翻轉。"
-                    }
-                ],
+                mcat: [],
                 words: [
-                    { word: "polymerase", phonetic: "[pəˈlɪməreɪs]", pos: "n.", meaning: "聚合酶", cefr: "C1", sentenceEn: "DNA polymerase elongates daughter strands.", sentenceZh: "DNA 聚合酶延長子股。" },
-                    { word: "nucleophile", phonetic: "[ˈnjuːkliəfaɪl]", pos: "n.", meaning: "親核試劑", cefr: "C1", sentenceEn: "Nucleophiles donate electron pairs.", sentenceZh: "親核試劑捐贈電子對。" },
-                    { word: "stereochemistry", phonetic: "[ˌstɛriəʊˈkɛmɪstri]", pos: "n.", meaning: "立體化學", cefr: "C1", sentenceEn: "Stereochemistry governs enzyme specificity.", sentenceZh: "立體化學支配酵素專一性。" }
+                    { word: "polymerase", phonetic: "[pəˈlɪməreɪs]", pos: "n.", meaning: "聚合酶", cefr: "C1", sentenceEn: "DNA polymerase elongates daughter strands.", sentenceZh: "DNA 聚合酶延長子股。" }
                 ]
             }
         };
 
-        // 延伸自動生成文章資料庫
-        const generatedExtensionArticles = {
-            1: {
-                title: "Extension 1: Advanced Membrane Fluidity (膜流動性進階)",
-                cefr: "B2",
-                category: "醫學院/細胞生物",
-                sentences: [
-                    { text: "Cholesterol acts as a bidirectional temperature buffer in animal cell membranes.", zh: "膽固醇在動物細胞膜中充當雙向溫度緩衝劑。" },
-                    { text: "At high temperatures, cholesterol restricts phospholipid movement to stabilize membranes.", zh: "高溫下膽固醇限制磷脂質運動以穩定薄膜。" },
-                    { text: "At low temperatures, cholesterol prevents hydrophobic tails from packing tightly.", zh: "低溫下膽固醇防止疏水性尾部緊密堆積。" }
-                ]
-            },
-            2: {
-                title: "Extension 2: Cooperativity & Hemoglobin (協同性與血紅素)",
-                cefr: "C1",
-                category: "生物化學/蛋白質",
-                sentences: [
-                    { text: "Oxygen binding to one heme subunit induces conformational changes in adjacent subunits.", zh: "氧氣與一個血基質次單元的結合會引發相鄰次單元的構象改變。" },
-                    { text: "The Bohr effect demonstrates how lower pH reduces oxygen affinity in metabolizing tissues.", zh: "波耳效應展示了較低的 pH 值如何降低代謝組織中的氧親和力。" }
-                ]
-            },
-            3: {
-                title: "Extension 3: Oxidative Phosphorylation & Uncouplers (氧化磷酸化與去偶聯劑)",
-                cefr: "C1",
-                category: "生物化學/代謝",
-                sentences: [
-                    { text: "Uncoupling agents dissipate the proton gradient across the inner mitochondrial membrane.", zh: "去偶聯劑會消除跨粒線體內膜的質子梯度。" },
-                    { text: "As a result, energy is released as heat rather than trapped as ATP.", zh: "結果能量以熱能形式釋放，而非儲存為 ATP。" }
-                ]
-            },
-            4: {
-                title: "Extension 4: Epigenetics & Histone Modification (表觀遺傳學)",
-                cefr: "C1",
-                category: "分子遺傳",
-                sentences: [
-                    { text: "Histone acetylation by HAT enzymes decreases positive charge on histones.", zh: "由 HAT 酵素進行的組蛋白乙醯化降低了組蛋白上的正電荷。" },
-                    { text: "This relaxes chromatin structure and increases gene transcription access.", zh: "這鬆弛了染色質結構並增加了基因轉錄的可及性。" }
-                ]
-            }
-        };
-
+        let currentMode = '5000'; // '5000' or 'mcat'
         let currentStage = 1;
-        let currentArticle = stageCurriculum[1].article;
-        let currentWords = stageCurriculum[1].words;
+        let currentArticle = basic5000Articles;
+        let currentWords = basic5000Words;
+        let activeCEFR = 'ALL';
         let isPlayingArticle = false;
         let currentSentenceIdx = 0;
         let mcatShowZh = true;
         let fcIndex = 0;
-        let autoPlayTimer = null;
         const synth = window.speechSynthesis;
 
         function speakPromise(text) {
@@ -483,6 +467,43 @@
         function speakText(text) {
             if (isPlayingArticle) stopArticlePlay();
             speakPromise(text);
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            const btn5000 = document.getElementById('mode-5000-btn');
+            const btnMcat = document.getElementById('mode-mcat-btn');
+            const mcatStageBar = document.getElementById('mcat-stage-bar');
+            const cefrFilterBar = document.getElementById('cefr-filter-bar');
+
+            if (mode === '5000') {
+                btn5000.className = "py-3 rounded-xl text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-700 shadow flex items-center justify-center gap-1.5 transition-all";
+                btnMcat.className = "py-3 rounded-xl text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5 transition-all";
+                mcatStageBar.classList.add('hidden');
+                cefrFilterBar.classList.remove('hidden');
+
+                document.getElementById('ai-article-card-title').innerText = "基礎 5000 高頻短文選集";
+                currentArticle = basic5000Articles;
+                currentWords = basic5000Words;
+            } else {
+                btnMcat.className = "py-3 rounded-xl text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-700 shadow flex items-center justify-center gap-1.5 transition-all";
+                btn5000.className = "py-3 rounded-xl text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5 transition-all";
+                mcatStageBar.classList.remove('hidden');
+                cefrFilterBar.classList.add('hidden');
+
+                switchStage(currentStage);
+                return;
+            }
+
+            document.getElementById('article-title').innerText = currentArticle.title;
+            document.getElementById('article-category').innerText = currentArticle.category;
+            document.getElementById('article-cefr-badge').innerText = `CEFR ${currentArticle.cefr}`;
+
+            renderArticleBody();
+            renderMcatQuestions();
+            renderVocabList(currentWords);
+            fcIndex = 0;
+            loadAnkiCard();
         }
 
         function switchStage(stageNum) {
@@ -512,17 +533,6 @@
             renderVocabList(currentWords);
             fcIndex = 0;
             loadAnkiCard();
-        }
-
-        function generateDynamicArticle() {
-            const ext = generatedExtensionArticles[currentStage];
-            if (ext) {
-                currentArticle = ext;
-                document.getElementById('article-title').innerText = currentArticle.title;
-                document.getElementById('article-category').innerText = currentArticle.category;
-                document.getElementById('article-cefr-badge').innerText = `CEFR ${currentArticle.cefr}`;
-                renderArticleBody();
-            }
         }
 
         function renderArticleBody() {
@@ -579,6 +589,33 @@
             }
         }
 
+        function filterCEFR(level) {
+            activeCEFR = level;
+            ['ALL', 'A1', 'A2', 'B1', 'B2', 'C1'].forEach(lvl => {
+                const btn = document.getElementById(`cefr-btn-${lvl}`);
+                if (lvl === level) {
+                    btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 text-white shadow";
+                } else {
+                    btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-iosCard dark:bg-iosDarkCard text-slate-600 border border-slate-200/60";
+                }
+            });
+
+            const filtered = level === 'ALL' 
+                ? basic5000Words 
+                : basic5000Words.filter(w => w.cefr === level);
+            renderVocabList(filtered);
+        }
+
+        function handleVocabSearch() {
+            const query = document.getElementById('vocab-search-input').value.toLowerCase();
+            const filtered = basic5000Words.filter(w => 
+                w.word.toLowerCase().includes(query) || 
+                w.meaning.includes(query) || 
+                w.phonetic.includes(query)
+            );
+            renderVocabList(filtered);
+        }
+
         function toggleMcatZh() {
             mcatShowZh = !mcatShowZh;
             const dot = document.getElementById('mcat-toggle-dot');
@@ -591,13 +628,17 @@
         function renderMcatQuestions() {
             const container = document.getElementById('mcat-questions-container');
             container.innerHTML = '';
-            const questions = stageCurriculum[currentStage].mcat;
+            const questions = currentMode === '5000' ? basic5000Questions : stageCurriculum[currentStage].mcat;
+            if (!questions || questions.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">此階段暫無題目</p>`;
+                return;
+            }
             questions.forEach((q, idx) => {
                 const card = document.createElement('div');
                 card.className = "bg-iosCard dark:bg-iosDarkCard rounded-3xl p-5 shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-4";
                 card.innerHTML = `
                     <div class="space-y-1">
-                        <span class="text-xs font-black text-blue-500">MCAT Stage ${currentStage} - Q${idx + 1}</span>
+                        <span class="text-xs font-black text-blue-500">Q${idx + 1} 歷屆擬真題</span>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">${q.qEn}</h3>
                         ${mcatShowZh ? `<p class="text-xs text-slate-400">${q.qZh}</p>` : ''}
                     </div>
@@ -650,7 +691,7 @@
                 `;
                 container.appendChild(card);
             });
-            document.getElementById('vocab-count-label').innerText = `已載入當前 Stage 共 ${list.length} 個單字`;
+            document.getElementById('vocab-count-label').innerText = `已載入單字共 ${list.length} 個`;
         }
 
         function loadAnkiCard() {
@@ -716,7 +757,7 @@
         }
 
         window.onload = function() {
-            switchStage(1);
+            switchMode('5000');
         };
     </script>
 </body>
