@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Readle & Anki 智慧新聞與生化英文學習平台</title>
+    <title>Readle Bio & MCAT 醫學院雙語學習平台</title>
 
     <!-- iOS Native App Standard Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ReadleBio">
-    <link rel="apple-touch-icon" href="https://placehold.co/180x180/007AFF/ffffff.png?text=Readle">
+    <meta name="apple-mobile-web-app-title" content="ReadleMCAT">
+    <link rel="apple-touch-icon" href="https://placehold.co/180x180/007AFF/ffffff.png?text=MCAT">
 
-    <!-- Tailwind CSS  -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -26,13 +26,13 @@
                         primary: {
                             50: '#eff6ff',
                             100: '#dbeafe',
-                            500: '#007AFF', // iOS System Blue
+                            500: '#007AFF',
                             600: '#0062cc',
                         }
                     },
                     fontSize: {
-                        'base-lg': '1.125rem', // 18px Base Font
-                        'article-body': '1.25rem', // 20px High Legibility
+                        'base-lg': '1.125rem',
+                        'article-body': '1.25rem',
                     }
                 }
             }
@@ -67,22 +67,22 @@
         /* Kindle Line Active Highlight */
         .sentence-active {
             background-color: rgba(254, 240, 138, 0.7);
-            border-radius: 6px;
-            padding: 2px 4px;
+            border-radius: 8px;
+            padding: 4px 6px;
             transition: background-color 0.3s ease;
         }
         .dark .sentence-active {
             background-color: rgba(133, 77, 14, 0.8);
             color: #fef08a;
         }
-        /* Higher Level Block Highlight (B2/C1/C2) */
+        /* Higher Level Block Highlight (B2/C1) */
         .badge-b2 {
-            background-color: rgba(254, 215, 170, 0.5); /* Soft Amber */
+            background-color: rgba(254, 215, 170, 0.5);
             border-radius: 6px;
             padding: 2px 6px;
         }
         .badge-c1 {
-            background-color: rgba(254, 202, 202, 0.6); /* Soft Rose */
+            background-color: rgba(254, 202, 202, 0.6);
             border-radius: 6px;
             padding: 2px 6px;
         }
@@ -98,23 +98,21 @@
     <header class="sticky top-0 z-30 ios-glass border-b border-slate-200/50 dark:border-slate-800/80 pt-10 pb-3 px-4 shadow-sm">
         <div class="max-w-2xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-500/20">
-                    <i class="fa-solid fa-dna text-lg"></i>
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-user-md text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg tracking-tight leading-none">Readle Bio & 5000 Vocab</h1>
+                    <h1 class="font-bold text-lg tracking-tight leading-none">Readle Bio & MCAT Prep</h1>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium flex items-center gap-1.5">
-                        <span id="domain-badge-label" class="text-emerald-600 dark:text-emerald-400 font-bold">🧬 生物/化學/生化</span>
+                        <span id="domain-badge-label" class="text-emerald-600 dark:text-emerald-400 font-bold">🧬 醫學院考題與基礎知識</span>
                     </p>
                 </div>
             </div>
 
             <div class="flex items-center gap-2">
-                <!-- 設定 -->
                 <button onclick="toggleSettingsModal()" class="w-10 h-10 rounded-full bg-slate-200/70 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200 text-base active:scale-90 transition-transform">
                     <i class="fa-solid fa-sliders"></i>
                 </button>
-                <!-- 暗黑模式 -->
                 <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-full bg-slate-200/70 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200 text-base active:scale-90 transition-transform">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:inline"></i>
@@ -125,19 +123,23 @@
 
     <main class="max-w-2xl mx-auto px-4 pt-4">
 
-        <!-- 領域切換器 (基礎 5000 單 vs 生物化學/生化專科) -->
+        <!-- 領域切換器 -->
         <div class="bg-iosCard dark:bg-iosDarkCard p-2 rounded-2xl mb-4 border border-slate-200/60 dark:border-slate-800 flex gap-2">
             <button id="domain-5000-btn" onclick="switchDomain('5000')" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 transition-all">
                 📚 基礎 5000 單字
             </button>
             <button id="domain-bio-btn" onclick="switchDomain('bio')" class="flex-1 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-white shadow transition-all">
-                🧬 生物/化學/生化專科
+                🧬 醫學院基礎與考題 (MCAT)
             </button>
         </div>
 
-        <div class="grid grid-cols-3 bg-slate-200/80 dark:bg-slate-800 p-1.5 rounded-2xl mb-5 text-sm font-bold shadow-inner">
-            <button id="tab-stories-btn" onclick="switchMainTab('stories')" class="py-2.5 rounded-xl text-primary-500 bg-white dark:bg-slate-700 shadow transition-all">
-                📰 新聞文章
+        <!-- 頁籤選單 (包含全新 MCAT 考題頁籤) -->
+        <div class="grid grid-cols-4 bg-slate-200/80 dark:bg-slate-800 p-1.5 rounded-2xl mb-5 text-xs sm:text-sm font-bold shadow-inner">
+            <button id="tab-stories-btn" onclick="switchMainTab('stories')" class="py-2.5 rounded-xl text-emerald-600 bg-white dark:bg-slate-700 shadow transition-all">
+                📖 教學文章
+            </button>
+            <button id="tab-mcat-btn" onclick="switchMainTab('mcat')" class="py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all">
+                🎓 醫學院考題
             </button>
             <button id="tab-vocab-btn" onclick="switchMainTab('vocab')" class="py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all">
                 🗣️ 單字跟讀
@@ -149,20 +151,18 @@
 
         <section id="view-stories" class="space-y-5">
             
-            <!-- 生成 AI 文章選單區塊 -->
             <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white p-5 rounded-3xl shadow-xl space-y-3">
                 <div class="flex justify-between items-center">
                     <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md">
-                        🪄 依時間生成混級文章
+                        🪄 依時間生成教學文章
                     </span>
                     <button onclick="generateCustomArticle()" class="px-3 py-1 bg-white text-emerald-700 rounded-xl text-xs font-bold shadow active:scale-95 transition-transform">
                         重新生成 🔄
                     </button>
                 </div>
-                <h2 class="text-xl font-bold" id="ai-article-card-title">自動繪製混級閱讀文章</h2>
-                <p class="text-xs text-emerald-100 leading-relaxed">依照您設定的時間分級自動建立文章！跨階單字（如 B2, C1）會自動標註專屬高亮區塊！</p>
+                <h2 class="text-xl font-bold" id="ai-article-card-title">醫學院基礎雙語文章</h2>
+                <p class="text-xs text-emerald-100 leading-relaxed">逐句附帶繁體中文翻譯（發音時僅朗讀英文）。</p>
                 
-                <!-- 自訂時間長度選擇藥丸 -->
                 <div class="grid grid-cols-4 gap-1.5 pt-1">
                     <button onclick="setArticleLength('short')" id="len-short" class="len-btn py-2 bg-white/20 rounded-xl text-[11px] font-bold text-center border border-white/30">
                         短文<br><span class="text-[9px] font-normal opacity-90" id="label-len-short">&lt;1分鐘</span>
@@ -177,60 +177,35 @@
                         超長文<br><span class="text-[9px] font-normal opacity-90" id="label-len-extralong">&gt;5分鐘</span>
                     </button>
                 </div>
-
-                <!-- 混級選擇設定器 -->
-                <div class="pt-2 border-t border-white/20 flex justify-between items-center text-xs">
-                    <span class="font-bold">混級閱讀設定：</span>
-                    <div class="flex items-center gap-1.5">
-                        <span>基準</span>
-                        <select id="mix-base-level" onchange="generateCustomArticle()" class="bg-white/20 text-white font-bold rounded-lg px-2 py-1 text-xs outline-none">
-                            <option value="A1" class="text-slate-900">A1</option>
-                            <option value="A2" class="text-slate-900">A2</option>
-                            <option value="B1" selected class="text-slate-900">B1</option>
-                            <option value="B2" class="text-slate-900">B2</option>
-                        </select>
-                        <span>最高混合至</span>
-                        <select id="mix-max-level" onchange="generateCustomArticle()" class="bg-white/20 text-white font-bold rounded-lg px-2 py-1 text-xs outline-none">
-                            <option value="B2" class="text-slate-900">B2</option>
-                            <option value="C1" selected class="text-slate-900">C1</option>
-                        </select>
-                    </div>
-                </div>
             </div>
 
             <!-- 文章選單 -->
             <div class="space-y-2">
-                <div class="flex items-center justify-between px-1">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">選擇專業/新聞文章</span>
-                    <button onclick="showSavedArticles()" class="text-xs font-bold text-primary-500 flex items-center gap-1">
-                        <i class="fa-solid fa-bookmark"></i> 已收藏文章
-                    </button>
-                </div>
-
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">選擇醫學院基礎主題文章</span>
                 <div class="flex gap-2 overflow-x-auto no-scrollbar py-1" id="article-pills-container">
                     <!-- JS 動態寫入 -->
                 </div>
             </div>
 
-            <!-- 主文章讀者與 Kindle 控制板 -->
+            <!-- 主文章讀者 (逐句對照翻譯，不唸中文) -->
             <div class="bg-iosCard dark:bg-iosDarkCard rounded-3xl p-6 shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-5">
                 
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
                     <div class="flex items-center gap-2">
                         <span id="article-cefr-badge" class="px-3 py-1 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-300 font-extrabold text-xs">
-                            CEFR B1 (最高混 C1)
+                            CEFR B1
                         </span>
-                        <span id="article-category" class="text-xs font-bold text-slate-400">生化專業報導</span>
+                        <span id="article-category" class="text-xs font-bold text-slate-400">醫學院基礎課程</span>
                     </div>
 
                     <button id="btn-save-article" onclick="toggleSaveCurrentArticle()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm active:scale-95 transition-transform">
-                        <i class="fa-regular fa-bookmark" id="article-bookmark-icon"></i> 收藏文章
+                        <i class="fa-regular fa-bookmark" id="article-bookmark-icon"></i> 收藏
                     </button>
                 </div>
 
                 <div>
                     <h2 id="article-title" class="text-xl sm:text-2xl font-bold leading-tight text-slate-900 dark:text-white mb-2">
-                        Enzyme Catalysis in Biochemistry
+                        Fundamentals of Enzyme Kinetics
                     </h2>
                     
                     <div class="bg-slate-50 dark:bg-slate-800/80 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700 flex items-center justify-between gap-2 mt-3">
@@ -239,8 +214,8 @@
                                 <i class="fa-solid fa-play" id="play-article-icon"></i>
                             </button>
                             <div>
-                                <span id="reader-status-label" class="text-xs font-bold block text-slate-800 dark:text-slate-200">點擊播放文章 (Kindle 自動滾動)</span>
-                                <span class="text-[10px] text-slate-400">跨階高難度單字已底色標註</span>
+                                <span id="reader-status-label" class="text-xs font-bold block text-slate-800 dark:text-slate-200">點擊播放文章 (僅朗讀英文)</span>
+                                <span class="text-[10px] text-slate-400">一句英文 + 一句中文對照</span>
                             </div>
                         </div>
 
@@ -250,20 +225,39 @@
                     </div>
                 </div>
 
-                <!-- 文章逐字稿 -->
-                <div id="article-body-container" class="text-article-body text-slate-800 dark:text-slate-200 leading-relaxed font-serif space-y-4 pt-1">
-                    <!-- JS 動態生成帶有高亮區塊的文字 -->
-                </div>
-
-                <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">中文對照翻譯</span>
-                    <p id="article-zh-text" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-sans"></p>
+                <!-- 逐句對照文章區 -->
+                <div id="article-body-container" class="space-y-4 pt-1">
+                    <!-- JS 動態寫入英文句與中文翻譯 -->
                 </div>
             </div>
         </section>
 
-        <section id="view-vocab" class="space-y-4 hidden">
+        <section id="view-mcat" class="space-y-4 hidden">
             
+            <div class="bg-iosCard dark:bg-iosDarkCard rounded-3xl p-5 shadow-sm border border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
+                <div>
+                    <h2 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-blue-500"></i> MCAT 醫學院入學試題
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">生物、化學、生化歷屆與模擬真題練習</p>
+                </div>
+
+                <!-- 中英對照開關 -->
+                <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl">
+                    <span class="text-xs font-bold text-slate-600 dark:text-slate-300">中英對照</span>
+                    <button id="mcat-zh-toggle" onclick="toggleMcatZh()" class="w-12 h-6 rounded-full bg-emerald-500 p-1 flex items-center transition-colors">
+                        <div id="mcat-toggle-dot" class="w-4 h-4 rounded-full bg-white shadow-md transform translate-x-6 transition-transform"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- MCAT 題目卡片 -->
+            <div id="mcat-questions-container" class="space-y-4">
+                <!-- JS 動態生成題目 -->
+            </div>
+        </section>
+
+        <section id="view-vocab" class="space-y-4 hidden">
             <div class="bg-gradient-to-br from-emerald-500 via-teal-600 to-indigo-600 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden">
                 <div class="flex flex-col gap-3">
                     <div class="flex justify-between items-center">
@@ -307,46 +301,12 @@
                 </div>
             </div>
 
-            <!-- CEFR 分級選擇 -->
-            <div>
-                <div class="flex items-center justify-between mb-2 px-1">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">CEFR 分級選擇</span>
-                    <span id="level-count-badge" class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-slate-800 px-2.5 py-0.5 rounded-full">共 6 個單字</span>
-                </div>
-
-                <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
-                    <button onclick="selectLevel('ALL')" id="pill-ALL" class="level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all shadow-sm bg-emerald-500 text-white scale-105">
-                        ALL
-                    </button>
-                    <button onclick="selectLevel('A1')" id="pill-A1" class="level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
-                        A1
-                    </button>
-                    <button onclick="selectLevel('A2')" id="pill-A2" class="level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
-                        A2
-                    </button>
-                    <button onclick="selectLevel('B1')" id="pill-B1" class="level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
-                        B1
-                    </button>
-                    <button onclick="selectLevel('B2')" id="pill-B2" class="level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
-                        B2
-                    </button>
-                    <button onclick="selectLevel('C1')" id="pill-C1" class="level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
-                        C1
-                    </button>
-                </div>
-            </div>
-
-            <!-- 搜尋與生字本過濾 -->
+            <!-- 單字列表與搜尋 -->
             <div class="bg-iosCard dark:bg-iosDarkCard rounded-2xl p-3 shadow-sm border border-slate-200/60 dark:border-slate-800 flex gap-2">
                 <div class="relative flex-1">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                    <input type="text" id="search-input" oninput="applyFilters()" placeholder="搜尋專業單字、音標或中文..." class="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <input type="text" id="search-input" oninput="applyFilters()" placeholder="搜尋醫學/化學單字、音標或中文..." class="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
                 </div>
-
-                <button id="fav-filter-btn" onclick="toggleFavFilter()" class="px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 active:scale-95 transition-transform">
-                    <i class="fa-regular fa-star text-amber-500 text-sm" id="fav-filter-icon"></i>
-                    <span>生字本</span>
-                </button>
             </div>
 
             <div id="vocab-list-container" class="space-y-3">
@@ -357,9 +317,6 @@
         <section id="view-flashcard" class="space-y-4 hidden">
             <div class="flex justify-between items-center px-1">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">🎴 Anki 間隔記憶 (SM-2)</span>
-                <span id="anki-due-count" class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-0.5 rounded-full">
-                    今日待複習卡片
-                </span>
             </div>
 
             <div class="perspective-1000 w-full min-h-[340px]">
@@ -393,75 +350,32 @@
                         </div>
 
                         <div class="grid grid-cols-4 gap-1.5 pt-2" onclick="event.stopPropagation()">
-                            <button onclick="answerAnki('again')" class="py-2.5 bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-300 font-bold text-[11px] rounded-xl text-center">
-                                忘記<br><span class="text-[9px] opacity-75">10分鐘後</span>
-                            </button>
-                            <button onclick="answerAnki('hard')" class="py-2.5 bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-bold text-[11px] rounded-xl text-center">
-                                困難<br><span class="text-[9px] opacity-75">1天後</span>
-                            </button>
-                            <button onclick="answerAnki('good')" class="py-2.5 bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-[11px] rounded-xl text-center">
-                                良好<br><span class="text-[9px] opacity-75">3天後</span>
-                            </button>
-                            <button onclick="answerAnki('easy')" class="py-2.5 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[11px] rounded-xl text-center">
-                                簡單<br><span class="text-[9px] opacity-75">7天後</span>
-                            </button>
+                            <button onclick="answerAnki('again')" class="py-2.5 bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-300 font-bold text-[11px] rounded-xl text-center">忘記</button>
+                            <button onclick="answerAnki('hard')" class="py-2.5 bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-bold text-[11px] rounded-xl text-center">困難</button>
+                            <button onclick="answerAnki('good')" class="py-2.5 bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-[11px] rounded-xl text-center">良好</button>
+                            <button onclick="answerAnki('easy')" class="py-2.5 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[11px] rounded-xl text-center">簡單</button>
                         </div>
                     </div>
 
                 </div>
             </div>
-
-            <div class="flex items-center justify-between text-xs font-semibold text-slate-400 px-2">
-                <span id="fc-progress-text">卡片 1 / 6</span>
-                <button onclick="resetFlashcards()" class="text-emerald-600 font-bold">重新洗牌 🔀</button>
-            </div>
         </section>
 
     </main>
 
-    <!-- 設定 Modal (包含自訂文章時間門檻) -->
     <div id="settings-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center hidden">
         <div class="bg-iosCard dark:bg-iosDarkCard w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl border-t sm:border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                 <h3 class="font-bold text-base flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-emerald-500"></i> App 參數與文章時間長度設定
+                    <i class="fa-solid fa-sliders text-emerald-500"></i> 設定與停頓時間
                 </h3>
                 <button onclick="toggleSettingsModal()" class="text-slate-400 p-1 text-lg">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <!-- 時間長度分類設定 -->
             <div class="space-y-3 text-xs">
-                <p class="font-bold text-slate-400 uppercase tracking-wider">⏱️ 文章時間長度分類定義（分鐘）</p>
-
-                <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl">
-                    <span class="font-bold">短文門檻上限</span>
-                    <div class="flex items-center gap-1">
-                        <input type="number" id="cfg-time-short" value="1" min="0.5" max="5" step="0.5" class="w-16 text-center font-bold py-1 bg-white dark:bg-slate-700 border rounded-lg">
-                        <span>分鐘內</span>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl">
-                    <span class="font-bold">中長文上限</span>
-                    <div class="flex items-center gap-1">
-                        <input type="number" id="cfg-time-medium" value="3" min="1" max="10" step="0.5" class="w-16 text-center font-bold py-1 bg-white dark:bg-slate-700 border rounded-lg">
-                        <span>分鐘內</span>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl">
-                    <span class="font-bold">長文章上限</span>
-                    <div class="flex items-center gap-1">
-                        <input type="number" id="cfg-time-long" value="5" min="2" max="20" step="1" class="w-16 text-center font-bold py-1 bg-white dark:bg-slate-700 border rounded-lg">
-                        <span>分鐘內</span>
-                    </div>
-                </div>
-
-                <p class="text-[10px] text-slate-400 italic">超過「長文章」設定分鐘數者，將自動劃分為「超長文章」。</p>
-
-                <p class="font-bold text-slate-400 uppercase tracking-wider pt-2">🗣️ 跟讀與朗讀時間間隔</p>
+                <p class="font-bold text-slate-400 uppercase tracking-wider">🗣️ 跟讀朗讀時間間隔</p>
 
                 <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl">
                     <span class="font-bold">單字唸完停頓</span>
@@ -486,143 +400,96 @@
         </div>
     </div>
 
-    <!-- Readle 單字彈窗 -->
-    <div id="readle-popup-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center hidden">
-        <div class="bg-iosCard dark:bg-iosDarkCard w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl border-t sm:border border-slate-200 dark:border-slate-800 space-y-4">
-            <div class="flex justify-between items-start">
-                <div>
-                    <span id="pop-cefr" class="text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-600">A1</span>
-                    <h3 id="pop-word" class="text-2xl font-black text-slate-900 dark:text-white mt-1">enzyme</h3>
-                    <p id="pop-phonetic" class="text-sm font-mono text-slate-400">[ˈɛnzaɪm]</p>
-                </div>
-                <button onclick="closeReadlePopup()" class="text-slate-400 p-1 text-xl">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <p id="pop-meaning" class="text-base font-bold text-slate-800 dark:text-slate-200">n. 酵素；酶</p>
-
-            <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl text-xs space-y-1">
-                <p id="pop-sentence-en" class="font-medium text-slate-800 dark:text-slate-200 text-sm leading-snug"></p>
-                <p id="pop-sentence-zh" class="text-xs text-slate-400"></p>
-            </div>
-
-            <div class="flex gap-2 pt-1">
-                <button id="pop-speak-btn" onclick="" class="flex-1 py-3 bg-emerald-500 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-volume-high"></i> 發音
-                </button>
-                <button id="pop-fav-btn" onclick="" class="flex-1 py-3 bg-amber-500 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-star"></i> 存入生字本
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // 1. 基礎 5000 單字庫
-        const vocab5000 = [
-            { id: 101, word: "primary", phonetic: "[ˈpraɪmɛri]", pos: "adj.", meaning: "首要的；基本的", cefr: "A1", sentenceEn: "Safety is our primary concern in this project.", sentenceZh: "在這個計畫中，安全是我們首要關心的事。" },
-            { id: 102, word: "essential", phonetic: "[ɪˈsɛnʃəl]", pos: "adj.", meaning: "必要的；不可或缺的", cefr: "A2", sentenceEn: "Water is essential for all living creatures on Earth.", sentenceZh: "水對地球上的所有生物來說都是不可或缺的。" },
-            { id: 103, word: "opportunity", phonetic: "[ˌɑpɚˈtjunəti]", pos: "n.", meaning: "機會；時機", cefr: "B1", sentenceEn: "Don't miss this rare opportunity to study abroad.", sentenceZh: "不要錯過這個難得的出國留學機會。" },
-            { id: 104, word: "challenge", phonetic: "[ˈtʃælɪndʒ]", pos: "n.", meaning: "挑戰；質疑", cefr: "B1", sentenceEn: "Facing new challenges helps us grow much stronger.", sentenceZh: "面對新的挑戰能幫助我們變得更強大。" },
-            { id: 105, word: "innovative", phonetic: "[ˈɪnəˌveɪtɪv]", pos: "adj.", meaning: "創新的；革新的", cefr: "B2", sentenceEn: "The tech company is famous for its innovative products.", sentenceZh: "這間科技公司以其創新的產品聞名。" },
-            { id: 106, word: "resilient", phonetic: "[rɪˈzɪljənt]", pos: "adj.", meaning: "有韌性的；適應力強的", cefr: "C1", sentenceEn: "Children are often remarkably resilient in tough situations.", sentenceZh: "孩子們在困境中往往展現出驚人的韌性。" }
-        ];
-
-        // 2. 生物/化學/生化專科單字庫
+        
+        // 1. 醫學院/生化單字庫
         const vocabBio = [
             { id: 201, word: "enzyme", phonetic: "[ˈɛnzaɪm]", pos: "n.", meaning: "酵素；酶", cefr: "B1", sentenceEn: "Enzymes act as biological catalysts to speed up chemical reactions.", sentenceZh: "酵素作為生物催化劑以加速化學反應。" },
-            { id: 202, word: "metabolism", phonetic: "[mɛˈtæbəlˌɪzəm]", pos: "n.", meaning: "新陳代謝", cefr: "B2", sentenceEn: "Regular exercise helps boost your metabolic rate.", sentenceZh: "規律運動有助於提升你的新陳代謝率。" },
-            { id: 203, word: "molecule", phonetic: "[ˈmɑlɪˌkjul]", pos: "n.", meaning: "分子", cefr: "A2", sentenceEn: "A water molecule consists of two hydrogen atoms and one oxygen atom.", sentenceZh: "一個水分子由兩個氫原子和一個氧原子組成。" },
-            { id: 204, word: "catalyst", phonetic: "[ˈkætəlɪst]", pos: "n.", meaning: "催化劑", cefr: "C1", sentenceEn: "The enzyme acts as a catalyst in breaking down sugar.", sentenceZh: "該酵素在分解糖分的過程中扮演催化劑角色。" },
-            { id: 205, word: "genome", phonetic: "[ˈdʒinoʊm]", pos: "n.", meaning: "基因組；染色體組", cefr: "C1", sentenceEn: "Scientists mapped the entire human genome to understand genetic diseases.", sentenceZh: "科學家破解了完整的人類基因組以理解遺傳性疾病。" },
-            { id: 206, word: "synthesis", phonetic: "[ˈsɪnθəsɪs]", pos: "n.", meaning: "合成；綜合", cefr: "B2", sentenceEn: "Protein synthesis occurs inside the ribosomes of a cell.", sentenceZh: "蛋白質合成發生於細胞的核糖體內。" }
+            { id: 202, word: "metabolism", phonetic: "[mɛˈtæbəlˌɪzəm]", pos: "n.", meaning: "新陳代謝", cefr: "B2", sentenceEn: "Metabolism involves catabolic and anabolic pathways inside cells.", sentenceZh: "新陳代謝包含細胞內的分解代謝與合成代謝途徑。" },
+            { id: 203, word: "glycolysis", phonetic: "[ɡlaɪˈkɑləsəs]", pos: "n.", meaning: "糖解作用", cefr: "C1", sentenceEn: "Glycolysis breaks down glucose into pyruvate to yield ATP molecules.", sentenceZh: "糖解作用將葡萄糖分解為丙酮酸以產生 ATP 分子。" },
+            { id: 204, word: "catalyst", phonetic: "[ˈkætəlɪst]", pos: "n.", meaning: "催化劑", cefr: "C1", sentenceEn: "Enzymes lower activation energy by functioning as biological catalysts.", sentenceZh: "酵素發揮生物催化劑作用降低活化能。" },
+            { id: 205, word: "genome", phonetic: "[ˈdʒinoʊm]", pos: "n.", meaning: "基因組", cefr: "C1", sentenceEn: "Sequencing the human genome revolutionized molecular medicine.", sentenceZh: "定序人類基因組徹底革新了分子醫學。" },
+            { id: 206, word: "substrate", phonetic: "[ˈsʌbstreɪt]", pos: "n.", meaning: "底物；受質", cefr: "B2", sentenceEn: "The active site binds substrate molecules with high specificity.", sentenceZh: "活性區域以高度專一性結合受質分子。" }
         ];
 
-        let currentDomain = 'bio'; // '5000' or 'bio'
+        const vocab5000 = [
+            { id: 101, word: "primary", phonetic: "[ˈpraɪmɛri]", pos: "adj.", meaning: "首要的；基本的", cefr: "A1", sentenceEn: "Safety is our primary concern in medical procedures.", sentenceZh: "在醫療程序中，安全是我們首要考慮的事。" },
+            { id: 102, word: "essential", phonetic: "[ɪˈsɛnʃəl]", pos: "adj.", meaning: "必要的；不可或缺的", cefr: "A2", sentenceEn: "Oxygen is essential for aerobic respiration in human tissues.", sentenceZh: "氧氣對人體組織的有氧呼吸是不可或缺的。" }
+        ];
+
+        let currentDomain = 'bio';
         let currentVocabData = vocabBio;
 
-        // 文章庫
+        // 2. 醫學院基礎文章（一英一中對照，僅唸英文）
         const articlesDatabase = {
             bio1: {
                 id: 'bio1',
-                title: "Enzyme Catalysis in Biochemistry",
+                title: "Lesson 1: Fundamentals of Enzyme Kinetics",
                 cefr: "B1",
-                category: "生化專業文章",
-                zh: "酵素（Enzyme）是生化學中的重要生物催化劑。文章混合了 B2 的 metabolism 與 C1 的 catalyst 等高階單字。",
+                category: "生化基礎教學",
                 sentences: [
-                    { id: 1, text: "In living organisms, an enzyme is a biological catalyst that speeds up chemical reactions.", wordId: 201, level: "B1" },
-                    { id: 2, text: "They play a crucial role in regulating cellular metabolism throughout the body.", wordId: 202, level: "B2" }, // B2 Block
-                    { id: 3, text: "Each molecule binds specifically to its active site during synthesis.", wordId: 203, level: "A2" },
-                    { id: 4, text: "Without this powerful catalyst, biological pathways would progress too slowly.", wordId: 204, level: "C1" } // C1 Block
+                    { id: 1, text: "In biochemical reactions, an enzyme functions as a biological catalyst.", zh: "在生物化學反應中，酵素發揮生物催化劑的作用。" },
+                    { id: 2, text: "Enzymes speed up reaction rates by lowering the required activation energy.", zh: "酵素透過降低所需的活化能來加速反應速率。" },
+                    { id: 3, text: "Substrate molecules bind specifically to the enzyme active site.", zh: "受質分子以專一性結合到酵素的活性區域上。" },
+                    { id: 4, text: "Understanding enzyme kinetics is essential for pharmacology and medical diagnostics.", zh: "理解酵素動力學對藥理學與臨床診斷至關重要。" }
                 ]
             },
             bio2: {
                 id: 'bio2',
-                title: "Gene Editing & Genome Sequencing",
+                title: "Lesson 2: Cellular Metabolism & Glycolysis",
                 cefr: "B2",
-                category: "分子生物報導",
-                zh: "基因組（Genome）定序技術的突破，讓科學家能夠精準進行蛋白質合成與疾病研究。",
+                category: "細胞生物學基礎",
                 sentences: [
-                    { id: 1, text: "Decodes of the human genome have transformed modern medicine.", wordId: 205, level: "C1" },
-                    { id: 2, text: "Understanding protein synthesis is essential for drug development.", wordId: 206, level: "B2" },
-                    { id: 3, text: "Every single molecule inside a cell contributes to genetic stability.", wordId: 203, level: "A2" }
+                    { id: 1, text: "Cellular respiration converts biochemical energy from nutrients into ATP.", zh: "細胞呼吸作用將來自營養素的生物化學能量轉化為 ATP。" },
+                    { id: 2, text: "Glycolysis takes place in the cytoplasm and breaks glucose into two pyruvate molecules.", zh: "糖解作用發生於細胞質中，將葡萄糖分解為兩個丙酮酸分子。" },
+                    { id: 3, text: "Under anaerobic conditions, pyruvate undergoes fermentation to generate lactate.", zh: "在厭氧條件下，丙酮酸會進行發酵作用以產生乳酸。" }
                 ]
             }
         };
 
         let currentArticle = articlesDatabase.bio1;
 
-        // 設定與時間門檻設定
-        let configTime = {
-            shortMax: 1.0,
-            mediumMax: 3.0,
-            longMax: 5.0
-        };
+        // 3. MCAT 醫學院真題庫
+        const mcatQuestions = [
+            {
+                id: "mcat-1",
+                category: "Biochemistry / Enzyme Inhibition",
+                questionEn: "A competitive inhibitor is added to an enzymatic reaction mixture. What effect will this have on Vmax and Km?",
+                questionZh: "在酵素反應混合物中加入競爭性抑制劑（Competitive Inhibitor）。這對最大反應速率（Vmax）與米氏常數（Km）有何影響？",
+                options: [
+                    { en: "Vmax decreases; Km remains unchanged", zh: "Vmax 降低；Km 保持不變" },
+                    { en: "Vmax remains unchanged; Km increases", zh: "Vmax 保持不變；Km 增加", correct: true },
+                    { en: "Vmax decreases; Km decreases", zh: "Vmax 降低；Km 降低" },
+                    { en: "Vmax increases; Km increases", zh: "Vmax 增加；Km 增加" }
+                ],
+                explanationEn: "Competitive inhibitors bind to the free active site, competing directly with the substrate. Increasing substrate concentration can overcome inhibition, so Vmax remains unchanged while Km increases.",
+                explanationZh: "競爭性抑制劑會直接結合到游離的活性區域與受質競爭。增加受質濃度可克服抑制作用，因此最大反應速率 Vmax 不變，但需要更高受質濃度達到半速，故 Km 增加。"
+            },
+            {
+                id: "mcat-2",
+                category: "Cell Biology / Organelles",
+                questionEn: "Which organelle is primarily responsible for lipid synthesis and detoxification of drugs in hepatic cells?",
+                questionZh: "肝細胞中哪一個細胞器主要負責脂質合成以及藥物毒素的解毒作用？",
+                options: [
+                    { en: "Rough Endoplasmic Reticulum", zh: "粗糙內質網 (RER)" },
+                    { en: "Smooth Endoplasmic Reticulum", zh: "平滑內質網 (SER)", correct: true },
+                    { en: "Golgi Apparatus", zh: "高爾基體" },
+                    { en: "Lysosome", zh: "溶氧體/溶酶體" }
+                ],
+                explanationEn: "The smooth endoplasmic reticulum (SER) functions in lipid metabolism, steroid production, and detoxification of dangerous organic molecules.",
+                explanationZh: "平滑內質網 (SER) 主要負責脂質與類固醇代謝，並具備強大的有機毒物與藥物解毒功能。"
+            }
+        ];
 
-        let articleLengthSetting = 'medium'; // short, medium, long, extralong
-        let savedArticles = JSON.parse(localStorage.getItem('readle_saved_articles') || '[]');
-
-        let currentCefrFilter = 'ALL';
-        let filteredVocab = [...vocabBio];
-        let favFilterActive = false;
-        let bookmarks = JSON.parse(localStorage.getItem('readle_vocab_bookmarks') || '[]');
+        let showMcatZh = true; // MCAT 中英對照開關
 
         let config = { wordPauseSec: 2.0, sentencePauseSec: 3.0, speechRate: 1.0 };
-
-        let isPlayingAuto = false;
-        let isPausedAuto = false;
-        let autoPlayIndex = 0;
-        let currentTimeoutId = null;
-
         let isPlayingArticle = false;
         let currentSentenceIdx = 0;
         let isSentenceLooping = false;
-
-        let flashcardIndex = 0;
-        let isFlashcardFlipped = false;
+        let bookmarks = JSON.parse(localStorage.getItem('readle_vocab_bookmarks') || '[]');
 
         const synth = window.speechSynthesis;
-
-        function switchDomain(domain) {
-            currentDomain = domain;
-            if (domain === '5000') {
-                currentVocabData = vocab5000;
-                document.getElementById('domain-5000-btn').className = "flex-1 py-2 rounded-xl text-xs font-bold bg-primary-500 text-white shadow transition-all";
-                document.getElementById('domain-bio-btn').className = "flex-1 py-2 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 transition-all";
-                document.getElementById('domain-badge-label').innerText = "📚 基礎 5000 單字";
-            } else {
-                currentVocabData = vocabBio;
-                document.getElementById('domain-bio-btn').className = "flex-1 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-white shadow transition-all";
-                document.getElementById('domain-5000-btn').className = "flex-1 py-2 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 transition-all";
-                document.getElementById('domain-badge-label').innerText = "🧬 生物/化學/生化";
-            }
-
-            renderArticlePills();
-            applyFilters();
-            generateCustomArticle();
-            updateFlashcardUI();
-        }
 
         function speakPromise(text) {
             return new Promise((resolve) => {
@@ -638,110 +505,57 @@
         }
 
         function speakText(text) {
-            if (isPlayingAuto) stopAutoPlay();
             if (isPlayingArticle) stopArticlePlay();
             speakPromise(text);
         }
 
         function switchMainTab(tab) {
             document.getElementById('view-stories').classList.add('hidden');
+            document.getElementById('view-mcat').classList.add('hidden');
             document.getElementById('view-vocab').classList.add('hidden');
             document.getElementById('view-flashcard').classList.add('hidden');
 
-            document.getElementById('tab-stories-btn').className = "py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all";
-            document.getElementById('tab-vocab-btn').className = "py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all";
-            document.getElementById('tab-flashcard-btn').className = "py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all";
+            document.querySelectorAll('[id^="tab-"]').forEach(btn => {
+                btn.className = "py-2.5 rounded-xl text-slate-600 dark:text-slate-400 transition-all";
+            });
 
             if (tab === 'stories') {
                 document.getElementById('view-stories').classList.remove('hidden');
                 document.getElementById('tab-stories-btn').className = "py-2.5 rounded-xl text-emerald-600 bg-white dark:bg-slate-700 shadow transition-all";
+            } else if (tab === 'mcat') {
+                document.getElementById('view-mcat').classList.remove('hidden');
+                document.getElementById('tab-mcat-btn').className = "py-2.5 rounded-xl text-blue-600 bg-white dark:bg-slate-700 shadow transition-all";
+                renderMcatQuestions();
             } else if (tab === 'vocab') {
                 document.getElementById('view-vocab').classList.remove('hidden');
                 document.getElementById('tab-vocab-btn').className = "py-2.5 rounded-xl text-emerald-600 bg-white dark:bg-slate-700 shadow transition-all";
+                applyFilters();
             } else if (tab === 'flashcard') {
                 document.getElementById('view-flashcard').classList.remove('hidden');
                 document.getElementById('tab-flashcard-btn').className = "py-2.5 rounded-xl text-emerald-600 bg-white dark:bg-slate-700 shadow transition-all";
-                updateFlashcardUI();
             }
         }
 
-        // 依據時間門檻與混級設定建立 AI 文章
-        function generateCustomArticle() {
-            const baseLvl = document.getElementById('mix-base-level').value || 'B1';
-            const maxLvl = document.getElementById('mix-max-level').value || 'C1';
-
-            let sentenceList = [];
-            
-            if (articleLengthSetting === 'short') {
-                sentenceList = [
-                    { id: 1, text: "Enzymes are primary catalysts in human biology.", wordId: 201, level: "B1" },
-                    { id: 2, text: "They control metabolic pathways across all living cells.", wordId: 202, level: "B2" }
-                ];
-            } else if (articleLengthSetting === 'medium') {
-                sentenceList = [
-                    { id: 1, text: "In biochemistry, enzymes function as essential catalysts in metabolic pathways.", wordId: 201, level: "B1" },
-                    { id: 2, text: "Each water molecule is essential for chemical reactions inside cells.", wordId: 203, level: "A2" },
-                    { id: 3, text: "Mapping the human genome presents an exciting scientific opportunity.", wordId: 205, level: "C1" },
-                    { id: 4, text: "Engineers synthesize innovative solutions for gene editing.", wordId: 206, level: "B2" }
-                ];
-            } else if (articleLengthSetting === 'long') {
-                sentenceList = [
-                    { id: 1, text: "Cellular metabolism requires specific enzymes acting as catalysts.", wordId: 201, level: "B1" },
-                    { id: 2, text: "Understanding every single molecule is essential for modern biochemistry.", wordId: 203, level: "A2" },
-                    { id: 3, text: "Sequencing the entire human genome provides new medical opportunities.", wordId: 205, level: "C1" },
-                    { id: 4, text: "Protein synthesis allows organisms to stay remarkably resilient under stress.", wordId: 206, level: "B2" },
-                    { id: 5, text: "Developing targeted therapies poses a tough technical challenge.", wordId: 104, level: "B1" }
-                ];
-            } else {
-                // Extralong (>5 分鐘)
-                sentenceList = [
-                    { id: 1, text: "Biological systems rely heavily on enzymes to catalyze vital life processes.", wordId: 201, level: "B1" },
-                    { id: 2, text: "Boosting basal metabolism helps maintain long-term physical health.", wordId: 202, level: "B2" },
-                    { id: 3, text: "Each water molecule forms tight hydrogen bonds during synthesis.", wordId: 203, level: "A2" },
-                    { id: 4, text: "Using a synthetic catalyst accelerates chemical bond cleavage significantly.", wordId: 204, level: "C1" },
-                    { id: 5, text: "Analyzing genome data unlocks profound therapeutic opportunities.", wordId: 205, level: "C1" },
-                    { id: 6, text: "Ribosomes execute protein synthesis with extraordinary precision and speed.", wordId: 206, level: "B2" }
-                ];
-            }
-
-            articlesDatabase.gen = {
-                id: 'gen',
-                title: `Mixed ${baseLvl}-${maxLvl} ${currentDomain === 'bio' ? 'Biochemistry' : 'Vocab'} Article`,
-                cefr: `${baseLvl} (混 ${maxLvl})`,
-                category: `AI 混級文章 (${articleLengthSetting})`,
-                zh: `這是一篇以 ${baseLvl} 為基準混級至 ${maxLvl} 的練習文章。高於 ${baseLvl} 的單字以底色呈現！`,
-                sentences: sentenceList
-            };
-
-            loadArticle('gen');
-        }
-
-        function setArticleLength(len) {
-            articleLengthSetting = len;
-            document.querySelectorAll('.len-btn').forEach(btn => {
-                btn.className = "len-btn py-2 bg-white/20 rounded-xl text-[11px] font-bold text-center border border-white/30";
-            });
-            document.getElementById(`len-${len}`).className = "len-btn py-2 bg-white text-emerald-700 rounded-xl text-[11px] font-bold text-center shadow";
-            generateCustomArticle();
+        function switchDomain(domain) {
+            currentDomain = domain;
+            currentVocabData = domain === '5000' ? vocab5000 : vocabBio;
+            applyFilters();
         }
 
         function renderArticlePills() {
             const container = document.getElementById('article-pills-container');
             container.innerHTML = `
-                <button onclick="loadArticle('gen')" id="art-gen" class="art-pill px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap bg-emerald-500 text-white shadow-sm">
-                    🪄 AI 混級練習文
-                </button>
-                <button onclick="loadArticle('bio1')" id="art-bio1" class="art-pill px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
-                    🧬 生化報導：Enzyme Catalysis
+                <button onclick="loadArticle('bio1')" id="art-bio1" class="art-pill px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap bg-emerald-500 text-white shadow-sm">
+                    🧬 Lesson 1: 酵素動力學 (Kinetics)
                 </button>
                 <button onclick="loadArticle('bio2')" id="art-bio2" class="art-pill px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
-                    🔬 分子生物：Genome Sequencing
+                    🔬 Lesson 2: 糖解與代謝 (Glycolysis)
                 </button>
             `;
         }
 
         function loadArticle(id) {
-            currentArticle = articlesDatabase[id] || articlesDatabase.gen;
+            currentArticle = articlesDatabase[id] || articlesDatabase.bio1;
             stopArticlePlay();
 
             document.querySelectorAll('.art-pill').forEach(btn => {
@@ -755,55 +569,29 @@
             document.getElementById('article-title').innerText = currentArticle.title;
             document.getElementById('article-cefr-badge').innerText = `CEFR ${currentArticle.cefr}`;
             document.getElementById('article-category').innerText = currentArticle.category;
-            document.getElementById('article-zh-text').innerText = currentArticle.zh;
 
             renderArticleBody();
         }
 
-        // 渲染帶有跨階等級底色高亮標籤的文章
         function renderArticleBody() {
             const container = document.getElementById('article-body-container');
             container.innerHTML = '';
-            const baseLvl = document.getElementById('mix-base-level').value || 'B1';
 
             currentArticle.sentences.forEach((s, idx) => {
-                const sSpan = document.createElement('span');
-                sSpan.id = `sentence-${idx}`;
-                sSpan.className = "cursor-pointer inline-block my-1 transition-colors";
-                sSpan.onclick = () => playSingleSentence(idx);
+                const block = document.createElement('div');
+                block.id = `sentence-${idx}`;
+                block.className = "p-3 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-1 transition-all cursor-pointer";
+                block.onclick = () => playSingleSentence(idx);
 
-                const words = s.text.split(' ');
-                words.forEach(w => {
-                    const cleanW = w.toLowerCase().replace(/[^a-z]/g, '');
-                    const matchedVocab = currentVocabData.find(v => v.word === cleanW);
-
-                    if (matchedVocab) {
-                        const wordSpan = document.createElement('span');
-                        
-                        // 判斷是否高於基準等級 (例如 B2 或 C1 高於 B1)
-                        const isHigherLevel = (matchedVocab.cefr === 'B2' || matchedVocab.cefr === 'C1' || matchedVocab.cefr === 'C2') && baseLvl === 'B1';
-
-                        if (isHigherLevel) {
-                            // 區塊底色標記 + 右上角 CEFR 標籤
-                            wordSpan.className = matchedVocab.cefr === 'C1' ? 'badge-c1 font-bold text-rose-800 dark:text-rose-200 mx-0.5' : 'badge-b2 font-bold text-amber-800 dark:text-amber-200 mx-0.5';
-                            wordSpan.innerHTML = `${w} <sup class="text-[9px] font-extrabold px-1 rounded bg-black/10">${matchedVocab.cefr}</sup>`;
-                        } else {
-                            wordSpan.className = "underline decoration-emerald-500 font-bold text-emerald-600 dark:text-emerald-400 px-0.5";
-                            wordSpan.innerText = w + " ";
-                        }
-
-                        wordSpan.onclick = (e) => {
-                            e.stopPropagation();
-                            openReadlePopup(matchedVocab.id);
-                        };
-                        sSpan.appendChild(wordSpan);
-                        sSpan.appendChild(document.createTextNode(" "));
-                    } else {
-                        sSpan.appendChild(document.createTextNode(w + " "));
-                    }
-                });
-
-                container.appendChild(sSpan);
+                block.innerHTML = `
+                    <p class="text-base font-serif font-medium text-slate-900 dark:text-slate-100 leading-snug">
+                        <span class="text-xs font-bold text-emerald-500 mr-2">${idx + 1}.</span>${s.text}
+                    </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-sans pl-5 leading-normal">
+                        ${s.zh}
+                    </p>
+                `;
+                container.appendChild(block);
             });
         }
 
@@ -811,16 +599,16 @@
             if (isPlayingArticle) {
                 stopArticlePlay();
             } else {
-                if (isPlayingAuto) stopAutoPlay();
                 isPlayingArticle = true;
                 document.getElementById('play-article-icon').className = "fa-solid fa-pause";
-                document.getElementById('reader-status-label').innerText = "朗讀中 (Kindle 自動滾動)";
+                document.getElementById('reader-status-label').innerText = "朗讀中 (僅朗讀英文)";
 
                 for (let i = currentSentenceIdx; i < currentArticle.sentences.length; i++) {
                     if (!isPlayingArticle) break;
                     currentSentenceIdx = i;
 
                     highlightSentence(i);
+                    // 僅朗讀英文句子 text，忽略中文 zh
                     const sentenceText = currentArticle.sentences[i].text;
                     await speakPromise(sentenceText);
 
@@ -838,11 +626,9 @@
 
         function playSingleSentence(idx) {
             currentSentenceIdx = idx;
-            if (!isPlayingArticle) togglePlayArticle();
-            else {
-                highlightSentence(idx);
-                speakPromise(currentArticle.sentences[idx].text);
-            }
+            highlightSentence(idx);
+            // 點擊單句僅發音英文
+            speakPromise(currentArticle.sentences[idx].text);
         }
 
         function highlightSentence(idx) {
@@ -854,342 +640,123 @@
             }
         }
 
-        function toggleSentenceLoop() {
-            isSentenceLooping = !isSentenceLooping;
-            const btn = document.getElementById('btn-loop-sentence');
-            const label = document.getElementById('loop-label');
-            if (isSentenceLooping) {
-                btn.className = "px-2.5 py-1.5 rounded-xl bg-amber-500 text-white text-xs font-bold flex items-center gap-1 active:scale-95";
-                label.innerText = "單句重複";
-            } else {
-                btn.className = "px-2.5 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold flex items-center gap-1 active:scale-95";
-                label.innerText = "整篇";
-            }
-        }
-
         function stopArticlePlay() {
             isPlayingArticle = false;
             synth.cancel();
             document.getElementById('play-article-icon').className = "fa-solid fa-play";
-            document.getElementById('reader-status-label').innerText = "點擊播放文章 (Kindle 自動滾動)";
+            document.getElementById('reader-status-label').innerText = "點擊播放文章 (僅朗讀英文)";
             document.querySelectorAll('[id^="sentence-"]').forEach(el => el.classList.remove('sentence-active'));
         }
 
-        // Anki 閃卡
-        function updateFlashcardUI() {
-            const list = bookmarks.length > 0 ? currentVocabData.filter(v => bookmarks.includes(v.id)) : currentVocabData;
-            if (flashcardIndex >= list.length) flashcardIndex = 0;
-            const currentItem = list[flashcardIndex];
+        function toggleMcatZh() {
+            showMcatZh = !showMcatZh;
+            const toggleDot = document.getElementById('mcat-toggle-dot');
+            const toggleBtn = document.getElementById('mcat-zh-toggle');
 
-            document.getElementById('fc-cefr').innerText = currentItem.cefr;
-            document.getElementById('fc-word').innerText = currentItem.word;
-            document.getElementById('fc-phonetic').innerText = currentItem.phonetic;
-            document.getElementById('fc-pos').innerText = currentItem.pos;
-            document.getElementById('fc-meaning').innerText = currentItem.meaning;
-            document.getElementById('fc-sentence-en').innerText = currentItem.sentenceEn;
-            document.getElementById('fc-sentence-zh').innerText = currentItem.sentenceZh;
-
-            document.getElementById('fc-progress-text').innerText = `卡片 ${flashcardIndex + 1} / ${list.length}`;
-            isFlashcardFlipped = false;
-            document.getElementById('flashcard-card').classList.remove('rotate-y-180');
-        }
-
-        function flipFlashcard() {
-            isFlashcardFlipped = !isFlashcardFlipped;
-            const card = document.getElementById('flashcard-card');
-            if (isFlashcardFlipped) card.classList.add('rotate-y-180');
-            else card.classList.remove('rotate-y-180');
-        }
-
-        function answerAnki(quality) {
-            flashcardIndex = (flashcardIndex + 1) % (bookmarks.length > 0 ? bookmarks.length : currentVocabData.length);
-            updateFlashcardUI();
-        }
-
-        function resetFlashcards() {
-            flashcardIndex = 0;
-            updateFlashcardUI();
-        }
-
-        // 單字跟讀
-        async function startAutoPlay(fromBeginning = false) {
-            if (filteredVocab.length === 0) return alert("目前等級沒有單字！");
-            if (fromBeginning) autoPlayIndex = 0;
-
-            if (isPlayingArticle) stopArticlePlay();
-
-            isPlayingAuto = true;
-            isPausedAuto = false;
-            updatePlayerUI('playing');
-
-            while (autoPlayIndex < filteredVocab.length && isPlayingAuto) {
-                if (isPausedAuto) {
-                    await delay(400);
-                    continue;
-                }
-
-                const item = filteredVocab[autoPlayIndex];
-                highlightCurrentCard(item.id);
-
-                document.getElementById('player-word-display').innerText = `${item.word} ${item.phonetic}`;
-                document.getElementById('player-sub-display').innerText = `[${item.cefr}] ${item.meaning}`;
-
-                await speakPromise(item.word);
-                if (config.wordPauseSec > 0) {
-                    await runCountdownTimer(`🗣️ 跟讀單字 (停頓 ${config.wordPauseSec}s)`, config.wordPauseSec * 1000);
-                }
-
-                await speakPromise(item.sentenceEn);
-                if (config.sentencePauseSec > 0) {
-                    await runCountdownTimer(`💬 跟讀例句 (停頓 ${config.sentencePauseSec}s)`, config.sentencePauseSec * 1000);
-                }
-
-                autoPlayIndex++;
-            }
-
-            if (autoPlayIndex >= filteredVocab.length && isPlayingAuto) {
-                document.getElementById('player-word-display').innerText = "🎉 已完成本區跟讀！";
-                stopAutoPlay();
-            }
-        }
-
-        function pauseAutoPlay() {
-            isPausedAuto = true;
-            synth.cancel();
-            if (currentTimeoutId) clearTimeout(currentTimeoutId);
-            updatePlayerUI('paused');
-        }
-
-        function stopAutoPlay() {
-            isPlayingAuto = false;
-            isPausedAuto = false;
-            synth.cancel();
-            if (currentTimeoutId) clearTimeout(currentTimeoutId);
-            document.getElementById('player-timer-box').classList.add('hidden');
-            updatePlayerUI('stopped');
-            clearHighlights();
-        }
-
-        function delay(ms) {
-            return new Promise(resolve => { currentTimeoutId = setTimeout(resolve, ms); });
-        }
-
-        function runCountdownTimer(label, totalMs) {
-            return new Promise(async (resolve) => {
-                const timerBox = document.getElementById('player-timer-box');
-                const actionName = document.getElementById('timer-action-name');
-                const countdownText = document.getElementById('timer-countdown');
-                const progressBar = document.getElementById('timer-progress-bar');
-
-                actionName.innerText = label;
-                timerBox.classList.remove('hidden');
-
-                const intervalMs = 50;
-                let elapsed = 0;
-
-                while (elapsed < totalMs && isPlayingAuto && !isPausedAuto) {
-                    const remainingSec = ((totalMs - elapsed) / 1000).toFixed(1);
-                    const pct = (1 - elapsed / totalMs) * 100;
-
-                    countdownText.innerText = `${remainingSec}s`;
-                    progressBar.style.width = `${pct}%`;
-
-                    await delay(intervalMs);
-                    elapsed += intervalMs;
-                }
-
-                timerBox.classList.add('hidden');
-                resolve();
-            });
-        }
-
-        function updatePlayerUI(state) {
-            const btnResume = document.getElementById('btn-resume-play');
-            const btnPause = document.getElementById('btn-pause-play');
-
-            if (state === 'playing') {
-                btnResume.classList.add('hidden');
-                btnPause.classList.remove('hidden');
+            if (showMcatZh) {
+                toggleDot.className = "w-4 h-4 rounded-full bg-white shadow-md transform translate-x-6 transition-transform";
+                toggleBtn.className = "w-12 h-6 rounded-full bg-emerald-500 p-1 flex items-center transition-colors";
             } else {
-                btnResume.classList.remove('hidden');
-                btnPause.classList.add('hidden');
+                toggleDot.className = "w-4 h-4 rounded-full bg-white shadow-md transform translate-x-0 transition-transform";
+                toggleBtn.className = "w-12 h-6 rounded-full bg-slate-300 dark:bg-slate-700 p-1 flex items-center transition-colors";
             }
+            renderMcatQuestions();
         }
 
-        function selectLevel(level) {
-            currentCefrFilter = level;
-            if (isPlayingAuto) stopAutoPlay();
+        function renderMcatQuestions() {
+            const container = document.getElementById('mcat-questions-container');
+            container.innerHTML = '';
 
-            document.querySelectorAll('.level-pill').forEach(btn => {
-                btn.className = "level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all bg-iosCard dark:bg-iosDarkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800";
+            mcatQuestions.forEach((q, qIdx) => {
+                const card = document.createElement('div');
+                card.className = "bg-iosCard dark:bg-iosDarkCard rounded-3xl p-5 shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-4";
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <span class="px-3 py-1 bg-blue-50 dark:bg-blue-950 text-blue-600 font-extrabold text-xs rounded-xl">
+                            ${q.category}
+                        </span>
+                        <button onclick="speakText('${q.questionEn.replace(/'/g, "\\'")}')" class="text-blue-500 text-sm p-1">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">Q${qIdx + 1}. ${q.questionEn}</h3>
+                        ${showMcatZh ? `<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">${q.questionZh}</p>` : ''}
+                    </div>
+
+                    <div class="space-y-2">
+                        ${q.options.map((opt, optIdx) => `
+                            <button onclick="checkMcatAnswer('${q.id}', ${optIdx}, ${opt.correct || false})" id="opt-${q.id}-${optIdx}" class="w-full text-left p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 active:scale-98 transition-all">
+                                <span class="font-bold mr-1.5">${String.fromCharCode(65 + optIdx)}.</span> ${opt.en}
+                                ${showMcatZh ? `<div class="text-[11px] text-slate-400 font-normal pl-4 mt-0.5">${opt.zh}</div>` : ''}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div id="mcat-exp-${q.id}" class="hidden p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 text-xs space-y-1">
+                        <p class="font-bold text-emerald-800 dark:text-emerald-300">💡 解答與觀念解析 (Explanation):</p>
+                        <p class="text-slate-700 dark:text-slate-200 leading-relaxed">${q.explanationEn}</p>
+                        ${showMcatZh ? `<p class="text-slate-500 dark:text-slate-400 text-[11px] border-t border-emerald-200/40 pt-1 mt-1">${q.explanationZh}</p>` : ''}
+                    </div>
+                `;
+
+                container.appendChild(card);
             });
+        }
 
-            const activeBtn = document.getElementById(`pill-${level}`);
-            if (activeBtn) {
-                activeBtn.className = "level-pill px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all shadow-sm bg-emerald-500 text-white scale-105 border-transparent";
+        function checkMcatAnswer(qId, optIdx, isCorrect) {
+            const expBox = document.getElementById(`mcat-exp-${qId}`);
+            const optBtn = document.getElementById(`opt-${qId}-${optIdx}`);
+
+            if (isCorrect) {
+                optBtn.className = "w-full text-left p-3.5 rounded-2xl bg-emerald-500 text-white font-bold text-xs shadow-md transition-all";
+            } else {
+                optBtn.className = "w-full text-left p-3.5 rounded-2xl bg-rose-500 text-white font-bold text-xs shadow-md transition-all";
             }
 
-            applyFilters();
+            expBox.classList.remove('hidden');
         }
 
         function applyFilters() {
             const search = document.getElementById('search-input').value.trim().toLowerCase();
-
-            filteredVocab = currentVocabData.filter(item => {
-                const matchSearch = item.word.toLowerCase().includes(search) || item.meaning.includes(search);
-                const matchCefr = (currentCefrFilter === 'ALL') || (item.cefr === currentCefrFilter);
-                const matchFav = !favFilterActive || bookmarks.includes(item.id);
-
-                return matchSearch && matchCefr && matchFav;
-            });
-
-            document.getElementById('level-count-badge').innerText = `共 ${filteredVocab.length} 個單字`;
-            renderVocabList();
+            const filtered = currentVocabData.filter(v => v.word.toLowerCase().includes(search) || v.meaning.includes(search));
+            renderVocabList(filtered);
         }
 
-        function renderVocabList() {
+        function renderVocabList(list) {
             const container = document.getElementById('vocab-list-container');
             container.innerHTML = '';
 
-            filteredVocab.forEach(item => {
-                const isFav = bookmarks.includes(item.id);
+            list.forEach(item => {
                 const card = document.createElement('div');
-                card.id = `card-item-${item.id}`;
-                card.className = "bg-iosCard dark:bg-iosDarkCard rounded-2xl p-4 shadow-sm border border-slate-200/60 dark:border-slate-800 transition-all";
-
+                card.className = "bg-iosCard dark:bg-iosDarkCard rounded-2xl p-4 shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-2";
                 card.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
+                    <div class="flex justify-between items-center">
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-600">${item.cefr}</span>
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white cursor-pointer" onclick="speakText('${item.word}')">
-                                ${item.word}
-                            </h3>
-                            <button onclick="speakText('${item.word}')" class="text-slate-400 hover:text-emerald-500 p-1">
-                                <i class="fa-solid fa-volume-high text-sm"></i>
-                            </button>
-                            <span class="text-xs font-mono text-slate-400">${item.phonetic}</span>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">${item.word}</h3>
+                            <button onclick="speakText('${item.word}')" class="text-emerald-500 p-1"><i class="fa-solid fa-volume-high"></i></button>
                         </div>
-                        <button onclick="toggleBookmark(${item.id})" class="text-lg ${isFav ? 'text-amber-400' : 'text-slate-300'}">
-                            <i class="fa-solid fa-star"></i>
-                        </button>
                     </div>
-
-                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">${item.pos} ${item.meaning}</p>
-
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl text-xs space-y-1">
-                        <div class="flex justify-between items-start gap-2">
-                            <p class="font-medium text-slate-800 dark:text-slate-200 text-sm leading-snug">${item.sentenceEn}</p>
-                            <button onclick="speakText('${item.sentenceEn.replace(/'/g, "\\'")}')" class="text-emerald-500 p-0.5">
-                                <i class="fa-solid fa-volume-high text-xs"></i>
-                            </button>
-                        </div>
-                        <p class="text-xs text-slate-400">${item.sentenceZh}</p>
+                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200">${item.pos} ${item.meaning}</p>
+                    <div class="bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl text-xs space-y-0.5">
+                        <p class="font-medium text-slate-800 dark:text-slate-200">${item.sentenceEn}</p>
+                        <p class="text-slate-400">${item.sentenceZh}</p>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function highlightCurrentCard(id) {
-            clearHighlights();
-            const el = document.getElementById(`card-item-${id}`);
-            if (el) {
-                el.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50/40', 'dark:bg-emerald-950/20');
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-
-        function clearHighlights() {
-            document.querySelectorAll('[id^="card-item-"]').forEach(el => {
-                el.classList.remove('ring-2', 'ring-emerald-500', 'bg-emerald-50/40', 'dark:bg-emerald-950/20');
-            });
-        }
-
-        function openReadlePopup(id) {
-            const item = currentVocabData.find(v => v.id === id);
-            if (!item) return;
-
-            document.getElementById('pop-cefr').innerText = item.cefr;
-            document.getElementById('pop-word').innerText = item.word;
-            document.getElementById('pop-phonetic').innerText = item.phonetic;
-            document.getElementById('pop-meaning').innerText = `${item.pos} ${item.meaning}`;
-            document.getElementById('pop-sentence-en').innerText = item.sentenceEn;
-            document.getElementById('pop-sentence-zh').innerText = item.sentenceZh;
-
-            document.getElementById('pop-speak-btn').onclick = () => speakText(item.word);
-            
-            const isFav = bookmarks.includes(item.id);
-            const favBtn = document.getElementById('pop-fav-btn');
-            favBtn.innerText = isFav ? "已在生字本 (移除)" : "⭐ 存入生字本";
-            favBtn.onclick = () => {
-                toggleBookmark(item.id);
-                openReadlePopup(item.id);
-            };
-
-            document.getElementById('readle-popup-modal').classList.remove('hidden');
-            speakText(item.word);
-        }
-
-        function closeReadlePopup() {
-            document.getElementById('readle-popup-modal').classList.add('hidden');
-        }
-
-        function toggleBookmark(id) {
-            if (bookmarks.includes(id)) {
-                bookmarks = bookmarks.filter(bId => bId !== id);
-            } else {
-                bookmarks.push(id);
-            }
-            localStorage.setItem('readle_vocab_bookmarks', JSON.stringify(bookmarks));
-            renderVocabList();
-            if (!document.getElementById('view-flashcard').classList.contains('hidden')) {
-                updateFlashcardUI();
-            }
-        }
-
-        function toggleFavFilter() {
-            favFilterActive = !favFilterActive;
-            const btn = document.getElementById('fav-filter-btn');
-            const icon = document.getElementById('fav-filter-icon');
-
-            if (favFilterActive) {
-                btn.classList.add('bg-amber-100', 'text-amber-700');
-                icon.classList.replace('fa-regular', 'fa-solid');
-            } else {
-                btn.classList.remove('bg-amber-100', 'text-amber-700');
-                icon.classList.replace('fa-solid', 'fa-regular');
-            }
-            applyFilters();
-        }
-
-        function toggleSettingsModal() {
-            document.getElementById('settings-modal').classList.toggle('hidden');
-        }
-
-        function saveSettings() {
-            configTime.shortMax = parseFloat(document.getElementById('cfg-time-short').value) || 1.0;
-            configTime.mediumMax = parseFloat(document.getElementById('cfg-time-medium').value) || 3.0;
-            configTime.longMax = parseFloat(document.getElementById('cfg-time-long').value) || 5.0;
-
-            config.wordPauseSec = parseFloat(document.getElementById('cfg-word-pause').value) || 2.0;
-            config.sentencePauseSec = parseFloat(document.getElementById('cfg-sentence-pause').value) || 3.0;
-
-            document.getElementById('label-len-short').innerText = `<${configTime.shortMax}分鐘`;
-            document.getElementById('label-len-medium').innerText = `${configTime.shortMax}-${configTime.mediumMax}分鐘`;
-            document.getElementById('label-len-long').innerText = `${configTime.mediumMax}-${configTime.longMax}分鐘`;
-            document.getElementById('label-len-extralong').innerText = `>${configTime.longMax}分鐘`;
-
-            toggleSettingsModal();
-        }
-
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-        }
+        function toggleSettingsModal() { document.getElementById('settings-modal').classList.toggle('hidden'); }
+        function saveSettings() { toggleSettingsModal(); }
+        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); }
 
         window.onload = function() {
             renderArticlePills();
-            generateCustomArticle();
-            applyFilters();
+            loadArticle('bio1');
         };
     </script>
 </body>
